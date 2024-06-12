@@ -1,0 +1,56 @@
+<mvc:View controllerName="znorthwind.controller.Worklist"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Page id="page" title="{i18n>title}">
+        <content>
+		<Button text="Load Employee" press="loadData"/>
+			<core:Fragment fragmentName="znorthwind.view.subview.EmployeeFilter" type="XML" />
+
+	<Table id="tblEmpId" headerText="Employees" noDataText="No Employee found" items="{/Employees}" >
+
+		<columns>	
+			<Column>
+				<Text text="Photograph" />
+			</Column>
+			<Column>
+				<Text text="Title " />
+			</Column>
+			<Column>
+				<Text text="Full Name" />
+			</Column>
+			<Column>
+				<Text text="Home Phone No" />
+			</Column>
+			<Column>
+				<Text text="Hire Date" />
+			</Column>
+            <Column>
+				<Text text="City(Postal Code)" />
+			</Column>
+			<Column>
+				<Text text="Country" />
+			</Column>
+		</columns>
+
+		<items>
+			<ColumnListItem vAlign="Middle" type="Active" press="moreEmpDetails">			
+				<cells>
+					<Avatar src="{path: 'Photo', formatter: '.formatPhoto'}" height="50px" width="50px"  />
+					<Text text="{Title}" />
+						<ObjectIdentifier
+						title="{TitleOfCourtesy} {FirstName} {LastName}"
+						text="{EmployeeID}"/>
+					<!-- <Text text="{TitleOfCourtesy} {FirstName} {LastName}" /> -->
+                    <Text text="{HomePhone}" />
+					<Text text="{HireDate}" />
+                    <Text text="{City} ({PostalCode})" />
+                    <Text text="{Country}" />
+				</cells>
+			</ColumnListItem>
+            
+		</items>
+	</Table>
+         </content>
+    </Page>
+</mvc:View>

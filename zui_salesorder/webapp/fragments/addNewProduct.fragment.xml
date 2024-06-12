@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+<Dialog title="Add New Product"> 
+
+
+<content> 
+   <l:Grid class="sapUiSmallMarginTop" defaultSpan="XL4 L3 M6 S12">
+
+        <VBox>
+        <Label text="Product Description"/>
+        <Input value="{prModel>/header/product_desc}" />
+        </VBox>
+
+       <VBox>
+        <Label text="Category" />
+        <Select selectedKey="{prModel>/header/product_category}" items="{appModel>/prodCat}">
+            <items>
+                <core:Item text="{appModel>value}" key="{appModel>key}"/>
+            </items>
+        </Select>
+       </VBox>
+
+        <VBox>
+        <Label text="Price" />
+        <Input value="{prModel>/header/product_price}" />
+        </VBox>
+
+        <VBox>
+        <Label text="Status" />
+        <Select selectedKey="{prModel>/header/product_status}" items="{appModel>/prodStatus}" editable="false">
+            <items>
+                <core:Item text="{appModel>value}" key="{appModel>key}"/>
+            </items>
+        </Select>
+       </VBox>
+
+      
+    </l:Grid>
+</content>
+
+<beginButton>
+<Button text="Submit" press="prodSubmitBtn"/>
+</beginButton>
+
+<endButton>
+    <Button text="Cancel" press="addNewProductClose"/>
+</endButton>
+</Dialog>
+</core:FragmentDefinition>

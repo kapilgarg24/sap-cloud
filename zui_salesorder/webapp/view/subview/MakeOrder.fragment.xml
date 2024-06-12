@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<Table noDataText="Add First Item" items="{crOrModel>/getProdDetails}" 	mode="MultiSelect" selectionChange="enterQty">
+		<columns>	
+			<Column>
+				<Text text="Product" />
+			</Column>
+			<Column>
+				<Text text="Category" />
+			</Column>
+			<Column>
+				<Text text="Unit Price" />
+			</Column>
+			<!-- <Column>
+				<Text text="Quantity" />
+			</Column>
+            <Column>
+				<Text text="Total Price" />
+			</Column> -->
+
+		</columns>
+<items>
+     <ColumnListItem vAlign="Middle" >		
+		<cells>
+                    <Text text="{crOrModel>product_desc}" />
+                    <Text text="{crOrModel>prod_category_text}" />
+                    <Text text="{crOrModel>product_price}" />
+                    <!-- <Input value="{crOrModel>quantity}" change="onQtyChange" editable="{crOrModel>/view/showFalse}"/>
+                    <Text text="{crOrModel>total_price}" />         -->
+		    </cells>
+	</ColumnListItem>
+            
+		</items>
+
+        
+	</Table>
+
+ <footer>
+        <OverflowToolbar>
+            <content>
+                <ToolbarSpacer />
+                <Button type="Emphasized" text="Sumbit" press="selectProdForOrder"/>
+                
+                 <!-- <Button text="Cancel"
+                 visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusActive'}"
+                 press="deleteCustomerPress"/> -->
+            </content>
+        </OverflowToolbar>
+    </footer>
+  </core:FragmentDefinition>

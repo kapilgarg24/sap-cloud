@@ -1,0 +1,107 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+<Dialog title="Create Order"> 
+
+<content> 
+   <l:Grid class="sapUiSmallMarginTop" defaultSpan="XL4 L3 M6 S12">
+        <VBox>
+        <Label text="Customer Id" />
+        <Input value="{/custAllDetail/customer_id}" editable="false"/>
+        </VBox>
+
+        <VBox>
+        <Label text="Full name" />
+        <Input value="{/custAllDetail/first_name} {/custAllDetail/middle_name} {/custAllDetail/last_name}" 
+        editable="false" />
+        </VBox>
+
+        <VBox >
+        <Label text="Address Type" />       
+        <Select selectedKey="{/addOrder/address_type}" items="{/addDetails}" >
+            <items>
+                <core:Item text="{address_type_text}" key="{address_type}"/>
+            </items>
+        </Select>
+        </VBox >
+
+        <!-- <VBox>
+        <Label text="Order Date" />
+        <DatePicker value="{/addOrder/order_date}" valueFormat="yyyy-MM-dd" displayFormat="dd-MM-yyyy"
+        editable="false" />
+        </VBox> -->
+
+    </l:Grid>
+
+
+
+<Table headerText="Generate Order" noDataText="Add First Item" items="{/addItems}" >
+   <headerToolbar>
+        <OverflowToolbar>
+			<content>
+				<Title text="Generate Order" level="H2"/>
+				<ToolbarSpacer />
+                <HBox>
+                <Button text="Final Amount" press="finalTotalChange"/>
+                <Input value="{/addOrder/final_amount}" editable="false"/>
+				<Button icon="sap-icon://add" text="Add More" type="Emphasized" 
+                press="addNewItemPress" />
+                </HBox>
+			</content>
+		</OverflowToolbar>
+	    </headerToolbar>
+
+		<columns>	
+			<Column>
+				<Text text="Product" />
+			</Column>
+			<Column>
+				<Text text="Category" />
+			</Column>
+			<Column>
+				<Text text="Unit Price" />
+			</Column>
+			<Column>
+				<Text text="Quantity" />
+			</Column>
+            <Column>
+				<Text text="Total Price" />
+			</Column>
+            <Column>
+				<Text text="" />
+			</Column>
+		</columns>
+<items>
+     <ColumnListItem vAlign="Middle">		
+		<cells>
+			<ComboBox items="{/products}" selectedKey="{product_id}" selectionChange="onProductChange"> 
+                <items>
+                   <core:Item text="{product_desc}" key="{product_id}"/>
+                </items>
+            </ComboBox>
+                    <Text text="{category}" />
+                    <Text text="{unit_price}" />
+                    <Input value="{quantity}" change="onQtyChange"/>
+                    <!-- `livechange` work live as change value result change instantly and in
+                    `change`we have to change focus i.e. need to press any where in UI or press `enter` -->
+                    <Text text="{total_price}" />  
+                    <Button icon="sap-icon://delete" press="deleteItemBtn" />         
+		    </cells>
+	</ColumnListItem>
+            
+		</items>
+
+        
+	</Table>
+
+    
+
+</content>
+
+<beginButton>
+<Button text="Submit" press="onOrderButtnSubmit"/>
+</beginButton>
+
+<endButton>
+    <Button text="Cancel" press="createOrderClose"/>
+</endButton>
+</Dialog>
+</core:FragmentDefinition>

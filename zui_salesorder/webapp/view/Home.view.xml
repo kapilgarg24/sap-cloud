@@ -1,0 +1,22 @@
+<mvc:View controllerName="custmanage.controller.Home" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+    <Page title="Sales Management" showNavButton="false">
+   <content> 	
+
+        <core:Fragment fragmentName="custmanage.view.subview.CustomerFilter" type="XML" />
+        <core:Fragment fragmentName="custmanage.view.subview.CustDetails" type="XML" />    
+        
+ </content>
+ <!-- <footer>
+        <OverflowToolbar>
+            <content>
+                <ToolbarSpacer />
+               <Button type="Emphasized" text="Products" press="productDetailsPress"/>
+             <Button type="Emphasized" text="Save" visible= "{/view/showSave}" press="onSavePress"/> 
+                <Button text="Cancel" visible= "{/view/showSave}" press="onCancelPress"/>
+            </content>
+        </OverflowToolbar>
+    </footer> -->
+    
+    </Page>
+
+</mvc:View>

@@ -1,0 +1,53 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+<Dialog title="Update Product"> 
+
+
+<content> 
+   <l:Grid class="sapUiSmallMarginTop" defaultSpan="XL4 L3 M6 S12">
+		<VBox>
+        <Label text="Product Id" required="true" />
+        <Input id="editProdId" value="{prModel>/header/product_id}" enabled="false"/>
+        </VBox>
+
+        <VBox>
+        <Label text="Product Description"/>
+        <Input value="{prModel>/header/product_desc}" editable="{prModel>/view/showFalse}"/>
+        </VBox>
+
+       <VBox>
+        <Label text="Category" />
+        <Select selectedKey="{prModel>/header/product_category}" items="{appModel>/prodCat}" editable="{prModel>/view/showFalse}">
+            <items>
+                <core:Item text="{appModel>value}" key="{appModel>key}"/>
+            </items>
+        </Select>
+       </VBox>
+
+
+        <VBox>
+        <Label text="Price" />
+        <Input value="{prModel>/header/product_price}" editable="{prModel>/view/showFalse}"/>
+        </VBox>
+
+        <VBox>
+        <Label text="Status" />
+        <Select selectedKey="{prModel>/header/product_status}" items="{appModel>/prodStatus}" editable="{prModel>/view/showFalse}">
+            <items>
+                <core:Item text="{appModel>value}" key="{appModel>key}"/>
+            </items>
+        </Select>
+       </VBox>
+
+      
+    </l:Grid>
+</content>
+
+<beginButton>
+    <Button text="{prModel>/view/showEditBtn}" type="Emphasized" press="prodEditBtn"/>
+</beginButton>
+
+<endButton>
+<Button text="Cancel" press="prodEditBtnClose" />
+</endButton>
+</Dialog>
+</core:FragmentDefinition>

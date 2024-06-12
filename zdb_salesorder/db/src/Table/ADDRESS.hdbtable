@@ -1,0 +1,18 @@
+COLUMN TABLE "ADDRESS" (
+    "address_id" INT ,
+    "customer_id" INT NOT NULL,
+    "address_type" nvarchar(2) NOT NULL, 
+     "add_line_1" nvarchar(128) NOT NULL,
+     "add_line_2"	nvarchar(128),
+     "add_line_3" nvarchar(128),
+     "street" nvarchar(64) ,
+     "city" nvarchar(32) NOT NULL,
+     "state" nvarchar(32) NOT NULL,
+     "postal_code" nvarchar(8) NOT NULL,
+     "country" nvarchar(8) NOT NULL,
+    "created_by" nvarchar(64) NOT NULL,
+    "created_at" DATETIME NOT NULL,
+    "updated_by" nvarchar(64) NOT NULL,
+    "updated_at" DATETIME NOT NULL,
+    PRIMARY KEY ("address_id","customer_id")
+);

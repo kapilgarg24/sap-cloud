@@ -1,0 +1,11 @@
+{
+    "destinations": [
+      {
+        "name": "DEST_API_SALESORDER",
+        "url": "http://localhost:4004",
+        "forwardAuthToken": true,
+        "strictSSL": true
+
+      }
+    ]
+  }

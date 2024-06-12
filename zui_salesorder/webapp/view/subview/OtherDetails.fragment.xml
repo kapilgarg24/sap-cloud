@@ -1,0 +1,50 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<f:SimpleForm id="SimpleFormDisplay480_12120-3"
+			layout="ResponsiveGridLayout"
+			title=""
+			labelSpanXL="4"
+			labelSpanL="4"
+			labelSpanM="12"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="0"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsXL="2"
+			columnsL="2"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+				<core:Title text="General Information" />
+				<Label text="Full Name" />
+				<Text text="{/custAllDetail/first_name} {/custAllDetail/middle_name} {/custAllDetail/last_name}" />
+				<Label text="Date Of Birth" />
+				<Text text="{path:'/custAllDetail/date_of_birth', formatter:'.formatter.fnDisplayDate'}" />				
+				<Label text="Gender" />
+				<Text text="{/custAllDetail/gender_text}" />
+				<Label text="Marital Status" />
+				<Text text="{/custAllDetail/marital_status_text}" />
+				<Label text="Current status" />
+				<Text text="{/custAllDetail/is_active_text}" />
+
+				<core:Title text="Contact Details" />
+				<Label text="Mobile no" />
+				<Text text="{/custAllDetail/country_code}-{/custAllDetail/mobile_no}" />
+				<Label text="Alternate Mobile No" />
+				<Text text="{/custAllDetail/alt_country_code}-{/custAllDetail/alt_mobile}" />
+				<Label text="Email Id" />
+				<Text text="{/custAllDetail/email_add}" />
+				<Label text="Alternate Email Id" />
+				<Text text="{/custAllDetail/alt_email_add}" />
+			</f:content>
+		</f:SimpleForm>
+	
+	</VBox>
+</core:FragmentDefinition>
+

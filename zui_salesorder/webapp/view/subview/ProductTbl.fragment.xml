@@ -1,0 +1,60 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Table headerText="Products Detail" noDataText="No Order found" items="{prModel>/getProdDetails}">
+	<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Products" level="H2"/>
+					<ToolbarSpacer />
+					<Button icon="sap-icon://add" text="Add Product" type="Emphasized" 
+                    press="addNewProductPress" />                    
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+
+		<columns>	
+			<Column>
+				<Text text="Product Id" />
+			</Column>
+			<Column>
+				<Text text="Product Description" />
+			</Column>
+			<Column>
+				<Text text="Category" />
+			</Column>
+			<Column>
+				<Text text="Price" />
+			</Column>
+			<Column>
+				<Text text="Product Status" />
+			</Column>
+            <Column>
+				<Text text="Action" />
+			</Column>
+			<Column>
+				<Text text="Update Status" />
+			</Column>
+		</columns>
+		<items>
+              <ColumnListItem vAlign="Middle">			
+				<cells>
+					<Text text="{prModel>product_id}" />
+                    <Text text="{prModel>product_desc}" />
+                    <Text text="{prModel>prod_category_text}" />
+                    <Text text="{prModel>product_price}" />
+                    <!-- <Text text="{prModel>prod_status_text}" /> -->
+					<ObjectStatus
+						text="{prModel>prod_status_text}"
+						state="{path:'prModel>prod_status_text', formatter:'.formatter.fnDisplayStatusColor'}" 
+						/>
+				<HBox>
+					<Button icon="sap-icon://edit" press="updateProduct" />
+					<Button class="sapUiTinyMarginBegin" icon="sap-icon://delete" press="deleteProduct" />
+				</HBox>	
+					<Button text="{path:'prModel>prod_status_text', formatter:'.formatter.fnProdStatusText'}" 
+					width="8em" type="Emphasized" press="prodStatusUpdate"/>
+				</cells>
+			</ColumnListItem>
+            
+		</items>
+	</Table>
+</core:FragmentDefinition>

@@ -1,0 +1,22 @@
+<mvc:View controllerName="custmanage.controller.ProductsDetail" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+    <Page title="Products Management" showNavButton="true" navButtonPress="onNavBack">
+   <content> 	
+
+        <core:Fragment fragmentName="custmanage.view.subview.ProductFilter" type="XML" />
+        <core:Fragment fragmentName="custmanage.view.subview.ProductTbl" type="XML" />    
+        
+ </content>
+ <footer>
+        <OverflowToolbar>
+            <content>
+                <ToolbarSpacer />
+                <!-- <Button text="Recycle Bin" press="delProductDetailsPress"/> -->
+                <!-- <Button type="Emphasized" text="Save" visible= "{/view/showSave}" press="onSavePress"/> 
+                <Button text="Cancel" visible= "{/view/showSave}" press="onCancelPress"/>  -->
+            </content>
+        </OverflowToolbar>
+    </footer>
+    
+    </Page>
+
+</mvc:View>

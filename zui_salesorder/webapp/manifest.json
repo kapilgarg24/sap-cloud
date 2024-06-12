@@ -1,0 +1,109 @@
+{
+	"sap.app": {
+		"id": "custmanage",
+		"type": "application",
+		"title": "Customer Managment",
+		"description": "Customer, Items and Order managemant",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://task",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "custmanage.view.App",
+			"type": "XML",
+			"async": false,
+			"id": "app"
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "custmanage.view",
+				"controlId": "app",
+				"controlAggregation": "pages"
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "login",
+					"target": ["login"]
+				},
+				{
+					"pattern": "customers",
+					"name": "home",
+					"target": ["home"]
+				},
+				{
+					"pattern": "customerDetails/{custId}",
+					"name": "customerDetails",
+					"target": ["customerDetails"]
+				},
+				{
+				   	"pattern": "generateOrder/{custId}",
+					"name": "generateOrder",
+					"target": ["generateOrder"]
+				},
+				{
+					"pattern": "productsDetail",
+					"name": "productsDetail",
+					"target": ["productsDetail"]
+				},
+				{
+					"pattern": "items/{ordrNo}",
+					"name": "items",
+					"target": ["items"]
+				}				
+			],
+
+			"targets": {
+				"login": {
+					"id": "login",
+					"viewName": "Login"
+				},
+
+				"home": {
+					"id": "home",
+					"viewName": "Home"
+				},
+				
+				"customerDetails": {
+					"id": "customerDetails",
+					"viewName": "CustomerDetails"
+				},
+				
+				"generateOrder": {
+					"id": "generateOrder",
+					"viewName": "GenerateOrder"
+				},
+
+				"productsDetail":{
+					"id": "productsDetail",
+					"viewName": "ProductsDetail"
+				},
+
+				"items": {
+					"id": "items",
+					"viewName": "Items"
+				}
+				
+			}
+		}
+	}
+}

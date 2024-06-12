@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Table headerText="Order List" noDataText="No Order found" items="{/orderDetail}">
+	<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Order List" level="H2"/>
+					<ToolbarSpacer />
+					<Button icon="sap-icon://add" text="Create Order" type="Emphasized" 
+                    press="createOrderPress" />
+					<Button icon="sap-icon://add" text="Make Order" type="Emphasized" 
+                    press="makeOrderPress" />                    
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>	
+			<Column>
+				<Text text="Order No" />
+			</Column>
+			<Column>
+				<Text text="Order Date" />
+			</Column>
+			<Column>
+				<Text text="Delivery Date" />
+			</Column>
+			<Column>
+				<Text text="Address Type" />
+			</Column>
+			<Column>
+				<Text text="Final Amount" />
+			</Column>
+			<Column>
+				<Text text="Status" />
+			</Column>
+			<Column>
+				<Text text="Update Status" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem vAlign="Middle" type="Active" press="moreOrderDetails">			
+				<cells>
+					<Text text="{order_no}" />
+					<Text text="{path:'order_date', formatter:'.formatter.fnDisplayDate'}" />
+                    <Text text="{path:'deliver_date', formatter:'.formatter.fnDisplayDate'}" />
+                    <Text text="{address_type_text}" />
+					 <Text text="{final_amount}" />
+					 <ObjectStatus
+						text="{order_status_text}"
+						state="{path:'order_status_text', formatter:'.formatter.fnOrderStatusColor'}" 
+						/>
+					 <Button text="{path:'order_status_text', formatter:'.formatter.fnOrderStatusText'}" 
+					 type="Emphasized" press="orderStatusUpdate"/>
+				</cells>
+			</ColumnListItem>
+            
+		</items>
+	</Table>
+</core:FragmentDefinition>

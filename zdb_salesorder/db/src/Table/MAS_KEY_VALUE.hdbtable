@@ -1,0 +1,7 @@
+COLUMN TABLE "MAS_KEY_VALUE" (
+    "KEY"             NVARCHAR(30)        NULL     COMMENT 'Key',
+    "KEY_GROUP"      NVARCHAR(30)        NULL     COMMENT 'Key group ',
+    "VALUE"          NVARCHAR(200)       NOT NULL COMMENT 'Value',
+    PRIMARY KEY ("KEY","KEY_GROUP")
+)
+COMMENT 'Key value pair master data maintainance';

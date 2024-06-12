@@ -1,0 +1,5 @@
+<mvc:View controllerName="custmanage.controller.App" xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:mvc="sap.ui.core.mvc">
+	<App id="app" busy="false">
+		
+	</App>
+</mvc:View>

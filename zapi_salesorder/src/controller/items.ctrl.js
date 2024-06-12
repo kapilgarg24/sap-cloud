@@ -1,0 +1,72 @@
+var itemsRepo= require('../respository/items.repo.js');
+
+var sResp = "";
+
+async function get(req,res){
+    
+    try{
+        var sResult = await itemsRepo.getItems();
+        sResp = {status:sResult.length>0?200:404,"message":sResult.length>0?"OK":"No Data found",data:sResult};
+        // sResp=sResult;
+    }catch(err){
+    sResp = {status:500,message:"Something went wrong.",error:err.message};
+   }finally{
+    res.send(sResp);
+   }
+};
+
+async function getById(req,res){
+    // console.log(req.params.id);
+    var sResult = await itemsRepo.getItemsById(req.params.id)
+    var sResp = {status:sResult.length>0?200:404,"message":sResult.length>0?"OK":"No Data found",data:sResult};
+    res.send(sResp);
+}
+async function post(req,res){
+   try{
+    req.body.created_by= "system";
+    req.body.created_at =new Date();
+    req.body.updated_by ="system";
+    req.body.updated_at =new Date();
+    var sResult = await itemsRepo.createItems(req.body);
+    sResp = {status:sResult.affectedRows == 1 ?201:405,"message":sResult.affectedRows ==1 ?"Created successfully.":"No Data found",data:sResult};
+     
+   }catch(err){
+    sResp = {status:500,message:"Something went wrong.",error:err.message};
+   }finally{
+    res.send(sResp);
+   };
+};
+
+async function put(req,res){
+   try{
+    req.body.updated_by ="system";
+    req.body.updated_at =new Date();
+    var sResult = await itemsRepo.updateItems(req.body);
+    sResp = {"status":sResult.affectedRows >0 ? 200:405,"message":sResult.affectedRows > 0 ?"Update successfully.":"No Data found", data:sResult};
+     
+   }catch(err){
+    sResp = {status:500,message:"Something went wrong.",error:err.message};
+   }finally{
+    res.send(sResp);
+   }
+}
+async function del(req,res){
+   try{
+    console.log(req.params.id)
+    var sResult = await itemsRepo.deleteItems(req.params.id);
+    sResp = {status:sResult.affectedRows >= 1 ?200:405,"message":sResult.affectedRows > 0 ?"Deleted successfully.":"No Data found",data:sResult};
+     
+   }catch(err){
+    sResp = {status:500,message:"Something went wrong.",error:err.message};
+   }finally{
+    res.send(sResp);
+   }
+}
+
+module.exports = {
+    get,
+    getById,
+    post,
+    put,
+    del
+}

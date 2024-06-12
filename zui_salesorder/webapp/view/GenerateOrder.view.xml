@@ -1,0 +1,71 @@
+<mvc:View controllerName="custmanage.controller.GenerateOrder" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+  <Page title="Customer Details" showNavButton="true" navButtonPress="onNavBack">
+   <content>
+	   <l:Grid class="sapUiSmallMarginTop" defaultSpan="XL4 L3 M6 S12">
+        <VBox>
+        <Label text="Customer Id" />
+        <Input value="{crOrModel>/custAllDetail/customer_id}" editable="false"/>
+        </VBox>
+
+        <VBox>
+        <Label text="Full name" />
+        <Input value="{crOrModel>/custAllDetail/first_name} {crOrModel>/custAllDetail/middle_name} {crOrModel>/custAllDetail/last_name}" 
+        editable="false" />
+        </VBox>
+
+        <VBox >
+        <Label text="Address Type" />       
+        <Select selectedKey="{crOrModel>/addOrder/address_type}" items="{crOrModel>/addDetails}" >
+            <items>
+                <core:Item text="{crOrModel>address_type_text}" key="{crOrModel>address_type}"/>
+            </items>
+        </Select>
+        </VBox >
+
+        <VBox>
+        <Label text="Address" />
+        <Text text="{crOrModel>/custAllDetail/first_name} {crOrModel>/custAllDetail/middle_name} {crOrModel>/custAllDetail/last_name}" />
+        </VBox>
+
+        <Label text="Final Amount"/>
+        <Input value="{/addOrder/final_amount}" editable="false"/>
+
+    </l:Grid>
+ 
+   
+    <IconTabBar
+		expanded="{device>/isNoPhone}"
+		class="sapUiResponsiveContentPadding">
+		<items>
+			<IconTabFilter text="Create Order">
+            
+       		 <core:Fragment fragmentName="custmanage.view.subview.MakeOrder" type="XML" />    
+			</IconTabFilter>
+			
+		</items>
+	</IconTabBar>
+
+        
+ </content>
+ <!-- <footer>
+        <OverflowToolbar>
+            <content>
+                <ToolbarSpacer />
+                <Button type="Emphasized" text="In-Active"  
+                visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusInActive'}"
+                press="inActiveCustomerPress"/>
+
+                <Button type="Emphasized" text="Active" 
+                visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusActive'}"
+                press="activeCustomerPress"/>
+                
+                 <Button text="Delete"
+                 visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusActive'}"
+                 press="deleteCustomerPress"/>
+            </content>
+        </OverflowToolbar>
+    </footer> -->
+    
+    </Page>
+
+</mvc:View>

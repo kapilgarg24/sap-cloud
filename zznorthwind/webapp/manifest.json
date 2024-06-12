@@ -1,0 +1,134 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "znorthwind",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.13.3",
+      "toolsId": "70821892-f533-4081-968e-b1cdbbeae4f0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/northwind/northwind.svc/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.84.44",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "znorthwind.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {"useBatch":false}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "znorthwind.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteWorklist",
+          "pattern": ":?query:",
+          "target": [
+            "TargetWorklist"
+          ]
+        },
+        {
+          "name": "employeeDetails",
+          "pattern": "employeeDetails//{empId}",
+          "target": [
+            "employeeDetails"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetWorklist": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Worklist",
+          "viewName": "Worklist"
+        },
+        "employeeDetails": {
+          "viewType": "XML",
+          "viewId": "employeeDetails",
+          "viewName": "EmployeeDetails"
+        }
+        
+      }
+    },
+    "rootView": {
+      "viewName": "znorthwind.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

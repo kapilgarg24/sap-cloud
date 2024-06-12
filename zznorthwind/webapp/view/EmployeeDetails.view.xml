@@ -1,0 +1,69 @@
+<mvc:View controllerName="znorthwind.controller.EmployeeDetails"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Page title="Customer Details" showNavButton="true" navButtonPress="onNavBack">
+   <content>
+	<ObjectHeader
+		icon="{}"
+		iconDensityAware="false"
+		iconAlt="{}"
+		imageShape="Circle"
+		responsive="true"
+		title="{/custAllDetail/first_name} {/custAllDetail/middle_name} {/custAllDetail/last_name}"
+		intro="Customer Id: {/custAllDetail/customer_id}"
+        class="sapUiResponsivePadding--header" >
+			<ObjectAttribute title="Hire Date" text="{/custAllDetail/email_add}" />
+			<ObjectAttribute title="Home Phone" text="{/custAllDetail/country_code} {/custAllDetail/mobile_no}" />
+            	<statuses>
+			<ObjectStatus
+				title= "Status"
+				text="{/custAllDetail/is_active_text}" 
+				state="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnCustStatusColor'}" 
+			/>
+            </statuses>
+	</ObjectHeader> 
+ 
+   
+    <IconTabBar
+		id="idIconTabBarFiori2"
+		expanded="{device>/isNoPhone}"
+		class="sapUiResponsiveContentPadding">
+		<items>
+			<IconTabFilter text="Other Details">
+        <!-- <core:Fragment fragmentName="custmanage.view.subview.OtherDetails" type="XML" />     -->
+			</IconTabFilter>
+			
+			<IconTabFilter text="Address" >
+        <!-- <core:Fragment fragmentName="custmanage.view.subview.AddressTbl" type="XML" /> -->
+			</IconTabFilter>
+			
+			<IconTabFilter text="Orders" >
+        <!-- <core:Fragment fragmentName="custmanage.view.subview.OrderTbl" type="XML" /> -->
+			</IconTabFilter>
+			</items>
+	</IconTabBar>
+
+        
+ </content>
+ <!-- <footer>
+        <OverflowToolbar>
+            <content>
+                <ToolbarSpacer />
+                <Button type="Emphasized" text="In-Active"  
+                visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusInActive'}"
+                press="inActiveCustomerPress"/>
+
+                <Button type="Emphasized" text="Active" 
+                visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusActive'}"
+                press="activeCustomerPress"/>
+                
+                 <Button text="Delete"
+                 visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusActive'}"
+                 press="deleteCustomerPress"/>
+            </content>
+        </OverflowToolbar>
+    </footer> -->
+    
+    </Page>
+</mvc:View>

@@ -1,0 +1,55 @@
+<mvc:View controllerName="custmanage.controller.Items" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+  <Page title="Customer Details" showNavButton="true" navButtonPress="onNavBack">
+   <content>
+	<ObjectHeader
+		responsive="true"
+		title="{orModel>/orderDetail/customer_name}"
+		intro="Customer Id: {orModel>/orderDetail/customer_id}"
+        class="sapUiResponsivePadding--header" >
+			<!-- <ObjectAttribute title="Order No" text="{orModel>/orderDetail/order_no}" /> -->
+			<ObjectAttribute title="Address Type" text="{orModel>/orderDetail/address_type_text}" />
+            	<statuses>
+			<ObjectStatus
+				title= "Order Status"
+				text="{orModel>/orderDetail/order_status_text}" 
+				state="{path:'orModel>/orderDetail/order_status_text', formatter:'.formatter.fnOrderStatusColor'}"
+			/>
+            </statuses>
+	</ObjectHeader> 
+ 
+   
+    <IconTabBar
+		expanded="{device>/isNoPhone}"
+		class="sapUiResponsiveContentPadding">
+		<items>
+			<IconTabFilter text="Order Details">
+       		 <core:Fragment fragmentName="custmanage.view.subview.ItemsTbl" type="XML" />    
+			</IconTabFilter>
+			
+		</items>
+	</IconTabBar>
+
+        
+ </content>
+ <!-- <footer>
+        <OverflowToolbar>
+            <content>
+                <ToolbarSpacer />
+                <Button type="Emphasized" text="In-Active"  
+                visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusInActive'}"
+                press="inActiveCustomerPress"/>
+
+                <Button type="Emphasized" text="Active" 
+                visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusActive'}"
+                press="activeCustomerPress"/>
+                
+                 <Button text="Delete"
+                 visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusActive'}"
+                 press="deleteCustomerPress"/>
+            </content>
+        </OverflowToolbar>
+    </footer> -->
+    
+    </Page>
+
+</mvc:View>

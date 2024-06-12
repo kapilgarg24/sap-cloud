@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Table headerText="Address" noDataText="No Address found" items="{/addDetails}" >
+<headerToolbar>
+		<OverflowToolbar>
+			<content>
+				<Title text="Customer Details" level="H2"/>
+				<ToolbarSpacer />
+				<Button icon="sap-icon://add" text="Add Address {= ${/addDetails}.length}" type="Emphasized" 
+                press="addNewAddressPress" enabled="{= (${/custAllDetail/is_active}==='Y' &amp;&amp; ${/addDetails}.length===0)?true:false}"/>       
+			</content>
+		</OverflowToolbar>
+</headerToolbar>
+
+		<columns>	
+			<Column>
+				<Text text="Address Id" />
+			</Column>
+			<Column>
+				<Text text="Address Type" />
+			</Column>
+			<Column>
+				<Text text="Address" />
+			</Column>
+			<Column>
+				<Text text="Street" />
+			</Column>
+			<Column>
+				<Text text="City" />
+			</Column>
+            <Column>
+				<Text text="postal_code" />
+			</Column>
+			<Column>
+				<Text text="State" />
+			</Column>
+			<Column>
+				<Text text="country" />
+			</Column>
+			<Column>
+				<Text text="" />
+			</Column>
+		</columns>
+
+		<items>
+			<ColumnListItem vAlign="Middle">			
+				<cells>
+					<Text text="{address_id}" />
+					<Text text="{address_type_text}" />
+					<Text text="{add_line_1} {add_line_2} {add_line_3}" />
+					<Text text="{street}" />
+                    <Text text="{city}" />
+                    <Text text="{postal_code}" />
+                    <Text text="{state}" />
+                    <Text text="{country}" />
+					<HBox>
+					<Button icon="sap-icon://edit" press="updateAddressPress" />
+					<!-- <Button class="sapUiTinyMarginBegin" icon="sap-icon://delete" press="deleteAddressPress" /> -->
+					</HBox>
+				</cells>
+			</ColumnListItem>
+            
+		</items>
+	</Table>
+</core:FragmentDefinition>
