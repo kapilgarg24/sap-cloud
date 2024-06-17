@@ -1,12 +1,27 @@
 var {excuteQuery,getRandomInt} = require('../util/db');
-const { SO_SCHEMA } = require('../util/constant');
+const {SO_SCHEMA} = require('../util/constant');
 
-var getAllCustDetails = `CALL SP_CUSTOMER_FILTER(?,?,?)`
 
-var getCustById = `SELECT CUST.*, MKV_G.VALUE AS "gender_text",MKV_M.VALUE AS "marital_status_text",MKV_I.VALUE AS "is_active_text" FROM ${SO_SCHEMA}.CUSTOMERS AS CUST
-LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_G ON MKV_G.KEY=CUST.GENDER AND MKV_G.GROUP = "GENDER"
-LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_M ON MKV_M.KEY=CUST.MARITAL_STATUS AND MKV_M.GROUP="MARITAL_STATUS"
-LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_I ON MKV_I.KEY=CUST.IS_ACTIVE AND MKV_I.GROUP="IS_ACTIVE" WHERE CUST.customer_id=?`;
+// var getAllCustDetails = `SELECT CUST.*, MKV_G.VALUE AS "gender_text",MKV_M.VALUE AS "marital_status_text",MKV_I.VALUE AS "is_active_text" FROM ${SO_SCHEMA}.CUSTOMERS AS CUST
+// LEFT Outer JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_G ON (MKV_G.KEY=CUST.GENDER AND MKV_G.KEY_GROUP = "GENDER")
+// LEFT Outer JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_M ON MKV_M.KEY=CUST.MARITAL_STATUS AND MKV_M.KEY_GROUP="MARITAL_STATUS"
+// LEFT Outer JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_I ON MKV_I.KEY=CUST.IS_ACTIVE AND MKV_I.KEY_GROUP="IS_ACTIVE"
+// WHERE (CUST.FIRST_NAME=? OR ?='')
+// AND (CUST.GENDER=? OR ?="")
+// AND (CUST.IS_ACTIVE=? OR ?="")`
+
+var getAllCustDetails = `SELECT CUST.*, MKV_G.VALUE AS "GENDER_TEXT",MKV_M.VALUE AS "MARITAL_STATUS_TEXT",MKV_I.VALUE AS "IS_ACTIVE_TEXT" FROM ${SO_SCHEMA}.CUSTOMERS AS CUST
+LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_G ON MKV_G.KEY=CUST.GENDER AND MKV_G.KEY_GROUP = 'gender'
+LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_M ON MKV_M.KEY=CUST.MARITAL_STATUS AND MKV_M.KEY_GROUP='marital_status'
+LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_I ON MKV_I.KEY=CUST.IS_ACTIVE AND MKV_I.KEY_GROUP='is_active' WHERE (CUST.FIRST_NAME=? OR ?='')
+AND (CUST.GENDER=? OR ?='') AND (CUST.IS_ACTIVE=? OR ?='');`
+
+// var getAllCustDetails = `SELECT * FROM ${SO_SCHEMA}.CUSTOMERS`
+
+var getCustById = `SELECT CUST.*, MKV_G.VALUE AS "GENDER_TEXT",MKV_M.VALUE AS "MARITAL_STATUS_TEXT",MKV_I.VALUE AS "IS_ACTIVE_TEXT" FROM ${SO_SCHEMA}.CUSTOMERS AS CUST
+LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_G ON MKV_G.KEY=CUST.GENDER AND MKV_G.KEY_GROUP = 'gender'
+LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_M ON MKV_M.KEY=CUST.MARITAL_STATUS AND MKV_M.KEY_GROUP='marital_status'
+LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_I ON MKV_I.KEY=CUST.IS_ACTIVE AND MKV_I.KEY_GROUP='is_active' WHERE CUST.CUSTOMER_ID=?`;
 
 var activeToInactive = `UPDATE ${SO_SCHEMA}.CUSTOMERS SET IS_ACTIVE = "N" WHERE CUSTOMER_ID = ?`
 var inactiveToActive = `UPDATE ${SO_SCHEMA}.CUSTOMERS SET IS_ACTIVE = "Y" WHERE CUSTOMER_ID = ?`
@@ -14,7 +29,8 @@ var inactiveToActive = `UPDATE ${SO_SCHEMA}.CUSTOMERS SET IS_ACTIVE = "Y" WHERE 
 var deleteAllDetails = `CALL SP_DELETE_CUSTOMER_ALL_DETAILS(?)`
 
 async function getCustomer(oFilter){
-    var sReponse = await excuteQuery(getAllCustDetails,[oFilter.first_name,oFilter.gender,oFilter.is_active]);
+    // var sReponse = await excuteQuery(getAllCustDetails,[oFilter.first_name,oFilter.first_name,oFilter.gender,oFilter.gender,oFilter.is_active,oFilter.is_active]);
+    var sReponse = await excuteQuery(getAllCustDetails,[oFilter.first_name,oFilter.first_name,oFilter.gender,oFilter.gender,oFilter.is_active,oFilter.is_active]);
     return sReponse;
 }
 

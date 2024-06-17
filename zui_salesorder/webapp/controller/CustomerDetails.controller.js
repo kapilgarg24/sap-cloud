@@ -74,27 +74,27 @@ sap.ui.define([
 		onObjectMatched: function (oEvent) {
 			var sCustId = oEvent.getParameter("arguments").custId;
 			this.getView().getModel().setProperty("/customerId", sCustId)
-			var user_name=this.getView().getModel("appModel").getProperty("/login/user_name");
-			if (user_name==""){
-				console.log("Yash");
-			console.log(user_name);
-				this.getOwnerComponent().getRouter().navTo("login")
-			}else{
-			console.log("Sushil");
-			console.log(user_name);
+			// var user_name=this.getView().getModel("appModel").getProperty("/login/user_name");
+			// if (user_name==""){
+			// 	console.log("Yash");
+			// console.log(user_name);
+			// 	this.getOwnerComponent().getRouter().navTo("login")
+			// }else{
+			// console.log("Sushil");
+			// console.log(user_name);
 			this.readCustomer();
 			this.readProduct();
-			}
+			// }
 		},
 
 
 		readCustomer: function () {
 			var sId = this.getView().getModel().getProperty("/customerId")
 			this.ajaxUtil.get("/customer/" + sId + "/allDetails", function (oData) {
-				console.log(oData.data)
+				console.log(oData.data[0])
 				this.getView().getModel().setProperty("/custAllDetail", oData.data[0]);
 				this.getView().getModel().setProperty("/addDetails", oData.data[0].address);
-				this.getView().getModel().setProperty("/orderDetail", oData.data[0].orders);
+				this.getView().getModel().setProperty("/orderDetail", oData.data[0].ORDERS);
 				this.getView().getModel().refresh();
 			}.bind(this), function (xHrx) {
 

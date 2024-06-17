@@ -1,5 +1,6 @@
 COLUMN TABLE "CUSTOMERS" (
     "CUSTOMER_ID" INT PRIMARY KEY,
+    "USER_NAME" nvarchar(64) NOT NULL,
     "FIRST_NAME" nvarchar(64) NOT NULL,
     "LAST_NAME" nvarchar(64) ,
     "MIDDLE_NAME" nvarchar(64),

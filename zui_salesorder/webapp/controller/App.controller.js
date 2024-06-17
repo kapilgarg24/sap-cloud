@@ -65,7 +65,8 @@ sap.ui.define([
 		readProdStatus:function(){
 			this.ajaxUtil.get("/keyValue", function (oData){
 				var sData = oData.data;
-				// console.log(sData)
+				console.log("vIJAY")
+				console.log(oData)
 				this.getView().getModel("appModel").setProperty("/prodStatus", sData);
 			}.bind(this),function(){},{group:"product_status"})
 		},

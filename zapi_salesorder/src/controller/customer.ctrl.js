@@ -1,6 +1,6 @@
 var customerRepo= require('../respository/customer.repo.js');
 var orderRepo= require('../respository/order.repo.js');
-var custRepo = require("../respository/address.repo.js")
+var addressRepo = require("../respository/address.repo.js")
 var sResp = "";
 
 async function get(req,res){
@@ -36,12 +36,12 @@ async function getById(req,res){
 async function getAllDetailsByCustID(req,res){
     try{
         var sResult = await customerRepo.getCustomerById(req.params.id);
+        if(sResult.length > 0 ){
+            sResult[0].ORDERS = await orderRepo.getOrderByCustId(req.params.id);
+            sResult[0].address = await addressRepo.getAddByCustId(req.params.id);
+        }
         console.log("Kapil")
         console.log(sResult);
-        if(sResult.length > 0 ){
-            sResult[0].orders = await orderRepo.getOrderByCustId(req.params.id);
-            sResult[0].address = await custRepo.getAddByCustId(req.params.id);
-        }
         sResp = {status:sResult.length > 0 ?200:404,"message":sResult.length > 0 ?"OK":"No Data found",data:sResult};
         
     }catch(err){

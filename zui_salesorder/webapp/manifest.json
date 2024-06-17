@@ -42,11 +42,6 @@
 			"routes": [
 				{
 					"pattern": "",
-					"name": "login",
-					"target": ["login"]
-				},
-				{
-					"pattern": "customers",
 					"name": "home",
 					"target": ["home"]
 				},
@@ -73,10 +68,6 @@
 			],
 
 			"targets": {
-				"login": {
-					"id": "login",
-					"viewName": "Login"
-				},
 
 				"home": {
 					"id": "home",

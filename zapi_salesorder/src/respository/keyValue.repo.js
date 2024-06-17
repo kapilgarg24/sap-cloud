@@ -2,7 +2,7 @@ const { SO_SCHEMA } = require('../util/constant');
 var {excuteQuery} = require('../util/db');
 
 var allValue = `SELECT KEY AS "key",VALUE AS "value" FROM ${SO_SCHEMA}.MAS_KEY_VALUE`;
-var valueByGroup = `SELECT * FROM ${SO_SCHEMA}.MAS_KEY_VALUE WHERE GROUP = ?`;
+var valueByGroup = `SELECT * FROM ${SO_SCHEMA}.MAS_KEY_VALUE WHERE KEY_GROUP = ?`;
 
 async function getAll(){
     var sReponse = await excuteQuery(allValue,[]);

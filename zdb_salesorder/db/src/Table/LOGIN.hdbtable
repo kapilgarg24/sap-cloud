@@ -1,4 +1,4 @@
-COLUMN TABLE "LOGIN " (
+COLUMN TABLE "LOGIN" (
     "ID" nvarchar(8) NOT NULL,
 "USER_NAME" nvarchar(32) NOT NULL,
 "USER_PASSWORD" nvarchar(16) NOT NULL,

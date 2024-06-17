@@ -4,7 +4,26 @@ var url = "/keyValue";
 
 function assignRoutes (app,baseUrl) {
   
+  /**
+   * GET /api/v1/keyValue/{group}
+   * @tags Mas Key Value
+   * @description Get mas key value by group
+   * @security BearerAuth
+   * @param {string} group.path - filter by key
+   */
   app.get(baseUrl+url,keyValueCtrl.get);
+
+    /**
+   * GET /api/v1/keyValue/
+   * @tags Mas Key Value
+   * @description Get mas key value by group
+   * @security BearerAuth
+   * @param {string} group.query - filter by key
+   */
+
+    
+    app.get(baseUrl+url,keyValueCtrl.get);
+
   // app.get(baseUrl+url+"/:group",keyValueCtrl.getById);
   // app.post(baseUrl+url,keyValueCtrl.post);
   //  app.put(baseUrl+url,keyValueCtrl.put);

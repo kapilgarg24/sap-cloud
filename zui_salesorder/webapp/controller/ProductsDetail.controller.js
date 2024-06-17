@@ -24,7 +24,7 @@ sap.ui.define([
 
 			var oJsondata = {
 				"header":{
-			"product_id": 0,
+			// "product_id": "",
             "product_desc": "",
             "product_category": "cat_c",
             "product_price": 0,
@@ -57,8 +57,9 @@ sap.ui.define([
 			
 		readProduct: function () {
 			this.ajaxUtil.get("/products", function (oData) {
-				var sData = oData.data[0];
-				console.log(sData)
+				console.log("KAPIL")
+				console.log(oData)
+				var sData = oData.data;
 				this.getView().getModel("prModel").setProperty("/getProdDetails", sData);
 				this.getView().getModel("prModel").refresh();
 			}.bind(this), function (xHrx) {
@@ -74,7 +75,7 @@ sap.ui.define([
 			this.ajaxUtil.post("/products",function(oData){
 				console.log(oData)
 				if(oData.status == 405){
-					MessageBox.error("Customer already exist .");
+					MessageBox.error("Product already exist .");
 				}else if (oData.status == 500){
 					MessageBox.error("Something went wrong."+oData.error);
 				}else{
@@ -222,8 +223,10 @@ sap.ui.define([
 	onProdSearch:function(){
 		var oFilter = this.getView().getModel("prModel").getProperty("/filters");
 		this.ajaxUtil.get("/products", function (oData) {
+			console.log("KAPIL")
+				console.log(oData)
 			// console.log(oData)
-			this.getView().getModel("prModel").setProperty("/getProdDetails", oData.data[0]);
+			this.getView().getModel("prModel").setProperty("/getProdDetails", oData.data);
 			this.getView().getModel("prModel").refresh();
 		}.bind(this), function (xHrx) { },oFilter);
 	},

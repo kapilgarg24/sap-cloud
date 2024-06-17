@@ -4,6 +4,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 
+
 xsenv.loadEnv();
 
 global.services = xsenv.getServices({
@@ -17,12 +18,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //To parse json data(i.e recieve data in post method)
 app.use(bodyParser.json());
 
+
+
 // ===========================GLOBLE VARIABLE========================//
 const port = 8081
 const baseUrl = "/api/v1";
 const appDir = "app";
 //===========================GLOBLE VARIABLE========================//
 
+var {fnConfigSwagger} = require('./util/swagger.js');
 
 //===========================ROUTES========================//
 var customerRoute = require('./router/customer.router.js');
@@ -53,6 +57,7 @@ loginRoute.assignRoutes(app,baseUrl);
 
 
 
+fnConfigSwagger(app,baseUrl);
 app.get('*', function(req, res){
    res.send({status:"404","message":"No resource found."});
 });

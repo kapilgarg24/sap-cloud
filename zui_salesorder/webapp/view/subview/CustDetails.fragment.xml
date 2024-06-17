@@ -52,19 +52,20 @@
 		<items>
 			<ColumnListItem vAlign="Middle" type="Active" press="moreCustDetails">
 				<cells>
-					<Text text="{customer_id}" />
-					<Text text="{first_name} {middle_name} {last_name}" />
-                    <Text text="{gender_text}" />
-					<Text text="{path:'date_of_birth', formatter:'.formatter.fnDisplayDate'}"/>
-                    <Text text="{marital_status_text}" />
-                    <Text text="{country_code}-{mobile_no}"/>
-                    <Text text="{email_add}"/>
-                    <Text text="{alt_country_code}-{alt_mobile}"/>
-                    <Text text="{alt_email_add}"/>
+					<Text text="{CUSTOMER_ID}" />
+					<Text text="{FIRST_NAME} {MIDDLE_NAME} {LAST_NAME}" />
+                    <Text text="{GENDER_TEXT}" />
+					<Text text="{path:'DATE_OF_BIRTH', formatter:'.formatter.fnDisplayDate'}"/>
+					<!-- <Text text="DATE"/> -->
+                    <Text text="{MARITAL_STATUS_TEXT}" />
+                    <Text text="{COUNTRY_CODE}-{MOBILE_NO}"/>
+                    <Text text="{EMAIL_ADD}"/>
+                    <Text text="{ALT_COUNTRY_CODE}-{ALT_MOBILE}"/>
+                    <Text text="{ALT_EMAIL_ADD}"/>
 					
 					<ObjectStatus
-						text="{is_active_text}" 
-						state="{path:'is_active_text', formatter:'.formatter.fnCustStatusColor'}" 
+						text="{IS_ACTIVE_TEXT}" 
+						state="{path:'IS_ACTIVE_TEXT', formatter:'.formatter.fnCustStatusColor'}" 
 						/>
 			 <HBox>
 					<Button  icon="sap-icon://personnel-view" press="editCustomer" />

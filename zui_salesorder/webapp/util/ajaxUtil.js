@@ -27,6 +27,7 @@ sap.ui.define([], function () {
                         sParam = sParam + "&" + (sKey + "=" + sValue);
                 }
             })
+            
             // sParam = "?"+sParam;
             console.log(sParam);
 

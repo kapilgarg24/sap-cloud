@@ -1,17 +1,22 @@
 var {excuteQuery} = require('../util/db');
 const { SO_SCHEMA } = require('../util/constant');
 
-var AddressByCustId = `SELECT ADDR.*, MKV_AT.VALUE AS address_type_text FROM ${SO_SCHEMA}.ADDRESS AS ADDR
-LEFT JOIN MAS_KEY_VALUE AS MKV_AT
-ON ADDR.ADDRESS_TYPE = MKV_AT.KEY WHERE MKV_AT.GROUP="ADDRESS_TYPE" AND ADDR.CUSTOMER_ID = ?`;
+var AddressByCustId = `SELECT * FROM ${SO_SCHEMA}.ADDRESS AS ADDR WHERE ADDR.customer_id = ?`;
+
+// var AddressByCustId = `SELECT ADDR.*, MKV_AT.VALUE AS ADDRESS_TYPE_TEXT FROM ${SO_SCHEMA}.ADDRESS AS ADDR
+// LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_AT
+// ON ADDR.address_type = MKV_AT.KEY AND MKV_AT.KEY_GROUP='address_type' WHERE ADDR.customer_id = ?`;
 
 async function getAddress(){
     var sReponse = await excuteQuery(`SELECT * FROM ${SO_SCHEMA}.ADDRESS`,[]);
+    
     return sReponse;
 };
 
 async function getAddByCustId(custId){
+    console.log(custId)
     var sReponse = await excuteQuery(AddressByCustId,[custId]);
+    console.log(sReponse)
     return sReponse;
 };
 

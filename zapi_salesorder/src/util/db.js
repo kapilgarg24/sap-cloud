@@ -38,9 +38,7 @@
 //     return sReponse;
 // }
 
-// function getRandomInt(min, max) {
-//     return Math.floor(Math.random() * (max - min));
-// };
+
 
 // module.exports = {
 //     getConnection,
@@ -93,7 +91,11 @@ async function excuteQuery(query,values){
         });    
     });
     return sReponse;
-}
+};
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min));
+};
 
 
 
@@ -102,5 +104,6 @@ async function excuteQuery(query,values){
 
 module.exports = {
   getConnection,
-  excuteQuery
+  excuteQuery,
+  getRandomInt
 }

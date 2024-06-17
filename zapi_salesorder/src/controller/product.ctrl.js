@@ -7,8 +7,8 @@ async function get(req,res){
     try{
         var oFilter = {
             product_price: req.query.product_price?req.query.product_price:0,
-            product_category: req.query.product_category?req.query.product_category:"",
-            product_status: req.query.product_status?req.query.product_status:""
+            product_category: req.query.product_category?req.query.product_category:'',
+            product_status: req.query.product_status?req.query.product_status:''
         }
 
         var sResult = await productRepo.getProduct(oFilter);
@@ -32,11 +32,12 @@ async function post(req,res){
    try{
     req.body.del_flag= 0;
     req.body.created_by= "system";
-    req.body.created_at =new Date();
+    req.body.created_at ="2024-06-15";
     req.body.updated_by ="system";
-    req.body.updated_at =new Date();
+    req.body.updated_at ="2024-06-15";
     var sResult = await productRepo.createProduct(req.body);
-    sResp = {status:sResult.affectedRows == 1 ?201:405,"message":sResult.affectedRows ==1 ?"Created successfully.":"No Data found",data:sResult};
+    console.log(sResult)
+    sResp = {status:sResult == 1 ?201:405,"message":sResult.affectedRows ==1 ?"Created successfully.":"No Data found",data:sResult};
      
    }catch(err){
     sResp = {status:500,message:"Something went wrong.",error:err.message};

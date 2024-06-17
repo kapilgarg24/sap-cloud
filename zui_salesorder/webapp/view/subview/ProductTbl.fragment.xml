@@ -37,20 +37,20 @@
 		<items>
               <ColumnListItem vAlign="Middle">			
 				<cells>
-					<Text text="{prModel>product_id}" />
-                    <Text text="{prModel>product_desc}" />
-                    <Text text="{prModel>prod_category_text}" />
-                    <Text text="{prModel>product_price}" />
+					<Text text="{prModel>PRODUCT_ID}" />
+                    <Text text="{prModel>PRODUCT_DESC}" />
+                    <Text text="{prModel>PROD_CATEGORY_TEXT}" />
+                    <Text text="{prModel>PRODUCT_PRICE}" />
                     <!-- <Text text="{prModel>prod_status_text}" /> -->
 					<ObjectStatus
-						text="{prModel>prod_status_text}"
-						state="{path:'prModel>prod_status_text', formatter:'.formatter.fnDisplayStatusColor'}" 
+						text="{prModel>PROD_STATUS_TEXT}"
+						state="{path:'prModel>PROD_STATUS_TEXT', formatter:'.formatter.fnDisplayStatusColor'}" 
 						/>
 				<HBox>
 					<Button icon="sap-icon://edit" press="updateProduct" />
 					<Button class="sapUiTinyMarginBegin" icon="sap-icon://delete" press="deleteProduct" />
 				</HBox>	
-					<Button text="{path:'prModel>prod_status_text', formatter:'.formatter.fnProdStatusText'}" 
+					<Button text="{path:'prModel>PROD_STATUS_TEXT', formatter:'.formatter.fnProdStatusText'}" 
 					width="8em" type="Emphasized" press="prodStatusUpdate"/>
 				</cells>
 			</ColumnListItem>

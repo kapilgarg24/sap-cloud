@@ -62,14 +62,14 @@ sap.ui.define([
 
 		onObjectMatched: function () {
 			// console.log("data refreshed")
-			setTimeout(function(){
-				var sGender = this.getModel("appModel").getProperty("/gender/0/key")
-				var sAvtive = this.getModel("appModel").getProperty("/isActive/0/key")
-				this.getModel().setProperty("/filters/gender",sGender)
-				this.getModel().setProperty("/filters/is_active",sAvtive)
+			// setTimeout(function(){
+			// 	var sGender = this.getModel("appModel").getProperty("/gender/0/key")
+			// 	var sAvtive = this.getModel("appModel").getProperty("/isActive/0/key")
+			// 	this.getModel().setProperty("/filters/gender",sGender)
+			// 	this.getModel().setProperty("/filters/is_active",sAvtive)
 			// console.log(sGender);
 			this.readCustomer();
-			}.bind(this), 2000)
+			// }.bind(this), 2000)
 
 		},
 
@@ -77,7 +77,8 @@ sap.ui.define([
 		readCustomer: function () {
 			var oFilter = this.getView().getModel().getProperty("/filters");
 			this.ajaxUtil.get("/customer", function (oData) {
-				this.getView().getModel().setProperty("/custDetail", oData.data[0]);
+				console.log(oData)
+				this.getView().getModel().setProperty("/custDetail", oData.data);
 				this.getView().getModel().refresh();
 			}.bind(this), function (xHrx) {
 
@@ -349,7 +350,7 @@ sap.ui.define([
 
 	moreCustDetails: function (oEvent) {
 		var sContext = oEvent.getSource().getBindingContext();
-		var sId = sContext.getProperty("customer_id");
+		var sId = sContext.getProperty("CUSTOMER_ID");
 		this.getOwnerComponent().getRouter().navTo("customerDetails", {
 			custId: sId,
 		})

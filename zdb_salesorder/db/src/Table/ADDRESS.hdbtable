@@ -13,6 +13,5 @@ COLUMN TABLE "ADDRESS" (
     "created_by" nvarchar(64) NOT NULL,
     "created_at" DATETIME NOT NULL,
     "updated_by" nvarchar(64) NOT NULL,
-    "updated_at" DATETIME NOT NULL,
-    PRIMARY KEY ("address_id","customer_id")
+    "updated_at" DATETIME NOT NULL
 );

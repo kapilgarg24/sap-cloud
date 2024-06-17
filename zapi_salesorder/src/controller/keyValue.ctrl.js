@@ -5,7 +5,7 @@ var sResp = "";
 async function get(req,res){
     
     try{
-        console.log("sdfsdfsdf");
+        // console.log("sdfsdfsdf");
         var sResult = "";
         if(req.query.group){
             sResult = await keyValueRepo.getKeyValueByGroup(req.query.group);
