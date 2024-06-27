@@ -1,4 +1,5 @@
 var productRepo= require('../respository/product.repo');
+var {currentDate} = require('../util/db');
 
 var sResp = "";
 
@@ -32,12 +33,11 @@ async function post(req,res){
    try{
     req.body.del_flag= 0;
     req.body.created_by= "system";
-    req.body.created_at ="2024-06-15";
+    req.body.created_at =currentDate();
     req.body.updated_by ="system";
-    req.body.updated_at ="2024-06-15";
+    req.body.updated_at = currentDate();
     var sResult = await productRepo.createProduct(req.body);
-    console.log(sResult)
-    sResp = {status:sResult == 1 ?201:405,"message":sResult.affectedRows ==1 ?"Created successfully.":"No Data found",data:sResult};
+    sResp = {status:sResult == 1 ?201:405,"message":sResult ==1 ?"Created successfully.":"No Data found",data:sResult};
      
    }catch(err){
     sResp = {status:500,message:"Something went wrong.",error:err.message};
@@ -49,9 +49,9 @@ async function post(req,res){
 async function put(req,res){
    try{
     req.body.updated_by ="system";
-    req.body.updated_at =new Date();
+    req.body.updated_at =currentDate();
     var sResult = await productRepo.updateProduct(req.body);
-    sResp = {"status":sResult.affectedRows >0 ? 200:405,"message":sResult.affectedRows > 0 ?"Update successfully.":"No Data found", data:sResult};
+    sResp = {"status":sResult >0 ? 200:405,"message":sResult > 0 ?"Update successfully.":"No Data found", data:sResult};
      
    }catch(err){
     sResp = {status:500,message:"Something went wrong.",error:err.message};
@@ -64,10 +64,10 @@ async function put(req,res){
 async function softDelete(req,res){
     try{
     req.body.updated_by ="system";
-    req.body.updated_at =new Date();
+    req.body.updated_at =currentDate();
    //   console.log(req.params.id)
      var sResult = await productRepo.softDeleteProduct(req.body);
-     sResp = {status:sResult.affectedRows >= 1 ?200:405,"message":sResult.affectedRows > 0 ?"Temp Deleted successfully.":"No Data found",data:sResult};
+     sResp = {status:sResult > 0 ?200:405,"message":sResult > 0 ?"Temp Deleted successfully.":"No Data found",data:sResult};
       
     }catch(err){
      sResp = {status:500,message:"Something went wrong.",error:err.message};
@@ -79,10 +79,10 @@ async function softDelete(req,res){
  async function prodStatusCtrl(req,res){
     try{
     req.body.updated_by ="system";
-    req.body.updated_at =new Date();
+    req.body.updated_at =currentDate();
      console.log(req.body)
      var sResult = await productRepo.productStatus(req.body);
-     sResp = {status:sResult.affectedRows >= 1 ?200:405,"message":sResult.affectedRows > 0 ?"Status Updated Successfully.":"No Data found",data:sResult};
+     sResp = {status:sResult > 0 ?200:405,"message":sResult > 0 ?"Status Updated Successfully.":"No Data found",data:sResult};
       
     }catch(err){
      sResp = {status:500,message:"Something went wrong.",error:err.message};
@@ -96,7 +96,7 @@ async function softDelete(req,res){
     try{
     req.body.product_id =req.params.id;
     req.body.updated_by ="system";
-    req.body.updated_at =new Date();
+    req.body.updated_at =currentDate();
     //  console.log(req.params.id)
      var sResult = await productRepo.restoreProduct(req.body);
      sResp = {status:sResult.affectedRows >= 1 ?200:405,"message":sResult.affectedRows > 0 ?"Restore successfully.":"No Data found",data:sResult};

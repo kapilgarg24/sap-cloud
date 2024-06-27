@@ -1,9 +1,7 @@
 var {excuteQuery} = require('../util/db');
 const { SO_SCHEMA } = require('../util/constant');
 
-var getAllById=`SELECT ITEMS.*, PROD.PRODUCT_DESC AS product_desc_text FROM ${SO_SCHEMA}.ITEMS
-LEFT JOIN PRODUCTS AS PROD
-ON PROD.PRODUCT_ID = ITEMS.PRODUCT_ID WHERE ORDER_NO=?`
+var getAllById=`SELECT * FROM ${SO_SCHEMA}.ITEMS WHERE ORDER_NO=?`
 
 async function getItems(){
         var sReponse = await excuteQuery(`SELECT * FROM ${SO_SCHEMA}.ITEMS`,[]);
@@ -14,13 +12,10 @@ async function getItemsById(order_no){
     var sReponse = await excuteQuery(getAllById,[order_no]);
     return sReponse;
 };
-{
-    
-}
 
 async function createItems(oPayload){
     var sReponse = await excuteQuery(`INSERT INTO ${SO_SCHEMA}.ITEMS VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
-    [oPayload.order_no,oPayload.product_id,oPayload.product_desc,oPayload.category,oPayload.quantity,
+    [oPayload.order_no,oPayload.product_id,oPayload.prod_desc,oPayload.category,oPayload.quantity,
     oPayload.unit_price,oPayload.total_price,oPayload.created_by,oPayload.created_at,oPayload.updated_by,oPayload.updated_at]);
     return sReponse;
 };

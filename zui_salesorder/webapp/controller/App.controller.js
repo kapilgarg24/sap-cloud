@@ -18,7 +18,8 @@ sap.ui.define([
 				"addressType":[],
 				"login":{
 					"user_name": "",
-					"user_password": ""
+					"user_password": "",
+					"custId":0
 				}
 			}
 

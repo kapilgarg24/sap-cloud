@@ -5,12 +5,12 @@
    <l:Grid class="sapUiSmallMarginTop" defaultSpan="XL4 L3 M6 S12">
         <VBox>
         <Label text="Customer Id" />
-        <Input value="{/custAllDetail/customer_id}" editable="false"/>
+        <Input value="{/custAllDetail/CUSTOMER_ID}" editable="false"/>
         </VBox>
 
         <VBox>
         <Label text="Full name" />
-        <Input value="{/custAllDetail/first_name} {/custAllDetail/middle_name} {/custAllDetail/last_name}" 
+        <Input value="{/custAllDetail/FIRST_NAME} {/custAllDetail/MIDDLE_NAME} {/custAllDetail/LAST_NAME}" 
         editable="false" />
         </VBox>
 
@@ -18,7 +18,7 @@
         <Label text="Address Type" />       
         <Select selectedKey="{/addOrder/address_type}" items="{/addDetails}" >
             <items>
-                <core:Item text="{address_type_text}" key="{address_type}"/>
+                <core:Item text="{ADDRESS_TYPE_TEXT}" key="{ADDRESS_TYPE}"/>
             </items>
         </Select>
         </VBox >
@@ -74,7 +74,7 @@
 		<cells>
 			<ComboBox items="{/products}" selectedKey="{product_id}" selectionChange="onProductChange"> 
                 <items>
-                   <core:Item text="{product_desc}" key="{product_id}"/>
+                   <core:Item text="{PRODUCT_DESC}" key="{PRODUCT_ID}"/>
                 </items>
             </ComboBox>
                     <Text text="{category}" />
@@ -82,7 +82,7 @@
                     <Input value="{quantity}" change="onQtyChange"/>
                     <!-- `livechange` work live as change value result change instantly and in
                     `change`we have to change focus i.e. need to press any where in UI or press `enter` -->
-                    <Text text="{total_price}" />  
+                    <Text text="{total_price}" />
                     <Button icon="sap-icon://delete" press="deleteItemBtn" />         
 		    </cells>
 	</ColumnListItem>

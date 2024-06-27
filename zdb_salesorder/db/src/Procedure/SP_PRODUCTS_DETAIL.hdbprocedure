@@ -1,0 +1,17 @@
+PROCEDURE "SP_PRODUCTS_DETAIL"(IN in_product_price FLOAT,IN in_prod_cat NVARCHAR(16),IN in_prod_status NVARCHAR(16))
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   READS SQL DATA AS
+BEGIN
+SELECT PROD.*,MKV_PS.VALUE AS prod_status_text ,MKV_C.VALUE AS prod_category_text  FROM PRODUCTS AS PROD
+LEFT JOIN MAS_KEY_VALUE AS MKV_PS
+ON PROD.PRODUCT_STATUS = MKV_PS.KEY AND MKV_PS.KEY_GROUP= 'product_status'
+LEFT JOIN MAS_KEY_VALUE as MKV_C
+ON PROD.PRODUCT_CATEGORY = MKV_C.KEY AND MKV_C.KEY_GROUP= 'category'
+WHERE 
+(PROD.PRODUCT_PRICE > in_product_price OR in_product_price = 0) AND
+(PROD.PRODUCT_CATEGORY = in_prod_cat OR in_prod_cat='')
+AND (PROD.PRODUCT_STATUS = in_prod_status OR in_prod_status='')
+AND PROD.DEL_FLAG = false;
+END

@@ -3,16 +3,16 @@
    <content>
 	<ObjectHeader
 		responsive="true"
-		title="{orModel>/orderDetail/customer_name}"
-		intro="Customer Id: {orModel>/orderDetail/customer_id}"
+		title="{orModel>/orderDetail/CUSTOMER_NAME}"
+		intro="Customer Id: {orModel>/orderDetail/CUSTOMER_ID}"
         class="sapUiResponsivePadding--header" >
 			<!-- <ObjectAttribute title="Order No" text="{orModel>/orderDetail/order_no}" /> -->
-			<ObjectAttribute title="Address Type" text="{orModel>/orderDetail/address_type_text}" />
+			<ObjectAttribute title="Address Type" text="{orModel>/orderDetail/ADDRESS_TYPE_TEXT}" />
             	<statuses>
 			<ObjectStatus
 				title= "Order Status"
-				text="{orModel>/orderDetail/order_status_text}" 
-				state="{path:'orModel>/orderDetail/order_status_text', formatter:'.formatter.fnOrderStatusColor'}"
+				text="{orModel>/orderDetail/ORDER_STATUS_TEXT}" 
+				state="{path:'orModel>/orderDetail/ORDER_STATUS_TEXT', formatter:'.formatter.fnOrderStatusColor'}"
 			/>
             </statuses>
 	</ObjectHeader> 

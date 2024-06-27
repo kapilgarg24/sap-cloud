@@ -1,4 +1,5 @@
 var orderRepo= require('../respository/order.repo.js');
+var {currentDate} = require('../util/db');
 
 var sResp = "";
 
@@ -27,19 +28,24 @@ async function get(req,res){
 
 async function getById(req,res){
    // console.log(req.params.custId);
+   try{
    var sResult = await orderRepo.getOrderById(req.params.order_no)
    var sResp = {status:sResult.length>0?200:404,"message":sResult.length>0?"OK":"No Data found",data:sResult};
+}catch(err){
+   sResp = {status:500,message:"Something went wrong.",error:err.message};
+  }finally{
    res.send(sResp);
+  }
 }
 
 async function post(req,res){
    try{
       req.body.created_by= "system";
-      req.body.created_at =new Date();
+      req.body.created_at =currentDate();
       req.body.updated_by ="system";
-      req.body.updated_at =new Date();
+      req.body.updated_at =currentDate();
     var sResult = await orderRepo.createOrder(req.body);
-    sResp = {status:sResult.affectedRows == 1 ?201:405,"message":sResult.affectedRows ==1 ?"Created successfully.":"No Data found",data:sResult};
+    sResp = {status:sResult == 1 ?201:405,"message":sResult ==1 ?"Created successfully.":"No Data found",data:sResult};
      
    }catch(err){
     sResp = {status:500,message:"Something went wrong.",error:err.message};
@@ -51,7 +57,7 @@ async function post(req,res){
 async function put(req,res){
    try{
       req.body.updated_by ="system";
-      req.body.updated_at =new Date();
+      req.body.updated_at =currentDate();
     var sResult = await orderRepo.updateOrder(req.body);
     sResp = {status:sResult.affectedRows >0 ? 200: 405,"message":sResult.affectedRows > 0 ?"Update successfully.":"No Data found", data:sResult};
      
@@ -65,10 +71,10 @@ async function put(req,res){
 async function orderStatusCtrl(req,res){
    try{
    req.body.updated_by ="system";
-   req.body.updated_at =new Date();
+   req.body.updated_at =currentDate();
    //  console.log(req.body)
     var sResult = await orderRepo.orderStatus(req.body);
-    sResp = {status:sResult.affectedRows >= 1 ?200:405,"message":sResult.affectedRows > 0 ?"Order status upated successfully.":"No Data found",data:sResult};
+    sResp = {status:sResult > 0 ?200:405,"message":sResult > 0 ?"Order status upated successfully.":"No Data found",data:sResult};
      
    }catch(err){
     sResp = {status:500,message:"Something went wrong.",error:err.message};

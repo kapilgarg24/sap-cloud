@@ -7,16 +7,16 @@
 		iconAlt="Denise Smith"
 		imageShape="Circle"
 		responsive="true"
-		title="{/custAllDetail/first_name} {/custAllDetail/middle_name} {/custAllDetail/last_name}"
-		intro="Customer Id: {/custAllDetail/customer_id}"
+		title="{/custAllDetail/FIRST_NAME} {/custAllDetail/MIDDLE_NAME} {/custAllDetail/LAST_NAME}"
+		intro="Customer Id: {/custAllDetail/CUSTOMER_ID}"
         class="sapUiResponsivePadding--header" >
-			<ObjectAttribute title="Email address" text="{/custAllDetail/email_add}" />
-			<ObjectAttribute title="Mobile No" text="{/custAllDetail/country_code} {/custAllDetail/mobile_no}" />
+			<ObjectAttribute title="Email address" text="{/custAllDetail/EMAIL_ADD}" />
+			<ObjectAttribute title="Mobile No" text="{/custAllDetail/COUNTRY_CODE} {/custAllDetail/MOBILE_NO}" />
             	<statuses>
 			<ObjectStatus
 				title= "Status"
-				text="{/custAllDetail/is_active_text}" 
-				state="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnCustStatusColor'}" 
+				text="{/custAllDetail/IS_ACTIVE_TEXT}" 
+				state="{path:'/custAllDetail/IS_ACTIVE_TEXT', formatter:'.formatter.fnCustStatusColor'}" 
 			/>
             </statuses>
 	</ObjectHeader> 
@@ -48,15 +48,15 @@
             <content>
                 <ToolbarSpacer />
                 <Button type="Emphasized" text="In-Active"  
-                visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusInActive'}"
+                visible="{path:'/custAllDetail/IS_ACTIVE_TEXT', formatter:'.formatter.fnStatusInActive'}"
                 press="inActiveCustomerPress"/>
 
                 <Button type="Emphasized" text="Active" 
-                visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusActive'}"
+                visible="{path:'/custAllDetail/IS_ACTIVE_TEXT', formatter:'.formatter.fnStatusActive'}"
                 press="activeCustomerPress"/>
                 
                  <Button text="Delete"
-                 visible="{path:'/custAllDetail/is_active_text', formatter:'.formatter.fnStatusActive'}"
+                 visible="{path:'/custAllDetail/IS_ACTIVE_TEXT', formatter:'.formatter.fnStatusActive'}"
                  press="deleteCustomerPress"/>
             </content>
         </OverflowToolbar>

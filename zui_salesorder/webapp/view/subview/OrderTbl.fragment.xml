@@ -38,16 +38,16 @@
 		<items>
 			<ColumnListItem vAlign="Middle" type="Active" press="moreOrderDetails">			
 				<cells>
-					<Text text="{order_no}" />
-					<Text text="{path:'order_date', formatter:'.formatter.fnDisplayDate'}" />
-                    <Text text="{path:'deliver_date', formatter:'.formatter.fnDisplayDate'}" />
-                    <Text text="{address_type_text}" />
-					 <Text text="{final_amount}" />
+					<Text text="{ORDER_NO}" />
+					<Text text="{path:'ORDER_DATE', formatter:'.formatter.fnDisplayDate'}" />
+                    <Text text="{path:'DELIVERY_DATE', formatter:'.formatter.fnDisplayDate'}" />
+                    <Text text="{ADDRESS_TYPE_TEXT}" />
+					 <Text text="{FINAL_AMOUNT}" />
 					 <ObjectStatus
-						text="{order_status_text}"
-						state="{path:'order_status_text', formatter:'.formatter.fnOrderStatusColor'}" 
+						text="{ORDER_STATUS_TEXT}"
+						state="{path:'ORDER_STATUS_TEXT', formatter:'.formatter.fnOrderStatusColor'}" 
 						/>
-					 <Button text="{path:'order_status_text', formatter:'.formatter.fnOrderStatusText'}" 
+					 <Button text="{path:'ORDER_STATUS_TEXT', formatter:'.formatter.fnOrderStatusText'}" 
 					 type="Emphasized" press="orderStatusUpdate"/>
 				</cells>
 			</ColumnListItem>

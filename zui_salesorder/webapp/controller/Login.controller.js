@@ -50,70 +50,76 @@ sap.ui.define([
 
 
 		onButtnSubmit: function () {
-			var custUserName = this.getView().getModel("loginModel").getProperty("/header/user_name")
-			this.ajaxUtil.get("/login/check", function (oData) {
+			var userDetails = this.getView().getModel("loginModel").getProperty("/header")
+			this.ajaxUtil.get("/login", function (oData) {
 				if (oData.status == 404) {
 					// MessageBox.error("Invalid username or password");
-					MessageBox.error("Invalid Username");
+					MessageBox.error("Invalid Username or Password");
 				} else if (oData.status == 500) {
 					MessageBox.error("Something went wrong. " + oData.error);
 				} else {
+					console.log(oData)
 					var oCustData = oData.data[0];
-					console.log(oCustData.no_of_try)
-					this.getView().getModel("loginModel").setProperty("/wrongAttempts", oCustData.no_of_try);
-					this.getView().getModel("loginModel").refresh();
-					
-					if(oCustData.no_of_try<5){
-						this.loginWithPassword();
-					}
-					else{
-						MessageBox.show("You have exceeded maximum number of wrong attempts");
-					}
-					
-					
-				}
-			}.bind(this), function (xHrx) {
-
-			}, {user_name:custUserName});
-
-		},
-
-
-
-		loginWithPassword:function(){
-			var oPayload = this.getView().getModel("loginModel").getProperty("/header")
-				console.log(oPayload)
-			this.ajaxUtil.get("/login", function (oData) {
-				if (oData.status == 404) {
-					MessageBox.error("Password is incorrect");
-					var sWrongAttempts = this.getView().getModel("loginModel").getProperty("/wrongAttempts")
-					var sNoOfTry = sWrongAttempts+1;
-					this.updateAttempts(sNoOfTry);
-				} else if (oData.status == 500) {
-					MessageBox.error("Something went wrong." + oData.error);
-				} else {
-					var oCustData = oData.data[0];
-					this.getView().getModel("loginModel").setProperty("/custDetail", oCustData);
-					this.getView().getModel("loginModel").refresh();
-					this.updateAttempts(0);
-					var userName = this.getView().getModel("loginModel").getProperty("/header/user_name");
-					var userPassword = this.getView().getModel("loginModel").getProperty("/header/user_password");
+					var userName = oCustData.USER_NAME;
+					var userPassword = oCustData.USER_PASSWORD;
+					var sId = oCustData.ID
 					this.getView().getModel("appModel").setProperty("/login/user_name",userName);
 					this.getView().getModel("appModel").setProperty("/login/user_password",userPassword);
-					if (oCustData.user_type == "C") {
-						var sId = this.getView().getModel("loginModel").getProperty("/custDetail/id");
+					this.getView().getModel("appModel").setProperty("/login/custId",sId);
+					if (oCustData.USER_TYPE == "C") {
+						
+						// var sId = this.getView().getModel("loginModel").getProperty("/oCustData/ID");
 						this.getOwnerComponent().getRouter().navTo("customerDetails", {
 							custId: sId,
 						})
 					} else {
 						this.getOwnerComponent().getRouter().navTo("home")
 					}
+					
+					
 				}
 			}.bind(this), function (xHrx) {
 
-			},oPayload);
+			}, userDetails);
 
 		},
+
+
+
+		// loginWithPassword:function(){
+		// 	var oPayload = this.getView().getModel("loginModel").getProperty("/header")
+		// 		console.log(oPayload)
+		// 	this.ajaxUtil.get("/login", function (oData) {
+		// 		if (oData.status == 404) {
+		// 			MessageBox.error("Password is incorrect");
+		// 			var sWrongAttempts = this.getView().getModel("loginModel").getProperty("/wrongAttempts")
+		// 			var sNoOfTry = sWrongAttempts+1;
+		// 			this.updateAttempts(sNoOfTry);
+		// 		} else if (oData.status == 500) {
+		// 			MessageBox.error("Something went wrong." + oData.error);
+		// 		} else {
+		// 			var oCustData = oData.data[0];
+		// 			this.getView().getModel("loginModel").setProperty("/custDetail", oCustData);
+		// 			this.getView().getModel("loginModel").refresh();
+		// 			this.updateAttempts(0);
+		// 			var userName = this.getView().getModel("loginModel").getProperty("/header/user_name");
+		// 			var userPassword = this.getView().getModel("loginModel").getProperty("/header/user_password");
+		// 			this.getView().getModel("appModel").setProperty("/login/user_name",userName);
+		// 			this.getView().getModel("appModel").setProperty("/login/user_password",userPassword);
+		// 			if (oCustData.user_type == "C") {
+		// 				var sId = this.getView().getModel("loginModel").getProperty("/custDetail/id");
+		// 				this.getOwnerComponent().getRouter().navTo("customerDetails", {
+		// 					custId: sId,
+		// 				})
+		// 			} else {
+		// 				this.getOwnerComponent().getRouter().navTo("home")
+		// 			}
+		// 		}
+		// 	}.bind(this), function (xHrx) {
+
+		// 	},oPayload);
+
+		// },
 
 		updateAttempts:function(attempts){
 			var custUsername = this.getView().getModel("loginModel").getProperty("/header/user_name")

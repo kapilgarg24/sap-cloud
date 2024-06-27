@@ -48,6 +48,7 @@ sap.ui.define([
 				addItems:[{
 				"product_id":"",
 				"category":"",
+				"prod_desc":"",
 				"unit_price":0,
 				"quantity":0,
 				"total_price":0}],
@@ -74,24 +75,21 @@ sap.ui.define([
 		onObjectMatched: function (oEvent) {
 			var sCustId = oEvent.getParameter("arguments").custId;
 			this.getView().getModel().setProperty("/customerId", sCustId)
-			// var user_name=this.getView().getModel("appModel").getProperty("/login/user_name");
+			var userId=this.getView().getModel("appModel").getProperty("/login/custId");
 			// if (user_name==""){
-			// 	console.log("Yash");
-			// console.log(user_name);
-			// 	this.getOwnerComponent().getRouter().navTo("login")
-			// }else{
-			// console.log("Sushil");
-			// console.log(user_name);
-			this.readCustomer();
-			this.readProduct();
-			// }
+				if(userId==sCustId){
+					this.readCustomer();
+					this.readProduct();
+			}else{
+					this.getOwnerComponent().getRouter().navTo("login")
+			}
 		},
 
 
 		readCustomer: function () {
 			var sId = this.getView().getModel().getProperty("/customerId")
 			this.ajaxUtil.get("/customer/" + sId + "/allDetails", function (oData) {
-				console.log(oData.data[0])
+				console.log(oData)
 				this.getView().getModel().setProperty("/custAllDetail", oData.data[0]);
 				this.getView().getModel().setProperty("/addDetails", oData.data[0].address);
 				this.getView().getModel().setProperty("/orderDetail", oData.data[0].ORDERS);
@@ -113,6 +111,8 @@ sap.ui.define([
 					if (MessageBox.Action.OK == sAction) {
 
 						this.ajaxUtil.put("/customer/" + sId + "/active", function (oData) {
+							console.log("Inactive")
+							console.log(oData)
 							MessageToast.show("Customer: " + sId + " inactivated successfully.");
 							this.readCustomer();
 						}.bind(this), function (xHrx) {
@@ -157,6 +157,7 @@ sap.ui.define([
 					if (MessageBox.Action.OK == sAction) {
 
 						this.ajaxUtil.delete("/customer/" + sId, function (oData) {
+							console.log(oData)
 							MessageToast.show("Customer: " + sId + "permanently deleted successfully.");
 							this.onNavBack();
 						}.bind(this), function (xHrx) {
@@ -170,7 +171,7 @@ sap.ui.define([
 
 		moreOrderDetails: function (oEvent) {
 			var sContext = oEvent.getSource().getBindingContext();
-			var sId = sContext.getProperty("order_no");
+			var sId = sContext.getProperty("ORDER_NO");
 			this.getOwnerComponent().getRouter().navTo("items", {
 				ordrNo: sId,
 			})
@@ -308,23 +309,21 @@ sap.ui.define([
 		updateAddressPress: function (oEvent) {
 			this.getModel().setProperty("/view/showEditBtn", "Edit");
 			this.getModel().setProperty("/view/showFalse", false);
-
 			var sContext = oEvent.getSource().getParent().getBindingContext();
 			var sData = sContext.getProperty();
 			// console.log(sData);
 			var oModel = this.getView().getModel()
-			oModel.setProperty("/header/address_id", sData.address_id);
-			oModel.setProperty("/header/address_type", sData.address_type);
-			oModel.setProperty("/header/add_line_1", sData.add_line_1);
-			oModel.setProperty("/header/add_line_2", sData.add_line_2);
-			oModel.setProperty("/header/add_line_3", sData.add_line_3);
-			oModel.setProperty("/header/street", sData.street);
-			oModel.setProperty("/header/city", sData.city);
-			oModel.setProperty("/header/state", sData.state);
-			oModel.setProperty("/header/postal_code", sData.postal_code);
-			oModel.setProperty("/header/country", sData.country);
+			oModel.setProperty("/header/address_id", sData.ADDRESS_ID);
+			oModel.setProperty("/header/address_type", sData.ADDRESS_TYPE);
+			oModel.setProperty("/header/add_line_1", sData.ADD_LINE_1);
+			oModel.setProperty("/header/add_line_2", sData.ADD_LINE_2);
+			oModel.setProperty("/header/add_line_3", sData.ADD_LINE_3);
+			oModel.setProperty("/header/street", sData.STREET);
+			oModel.setProperty("/header/city", sData.CITY);
+			oModel.setProperty("/header/state", sData.STATE);
+			oModel.setProperty("/header/postal_code", sData.POSTAL_CODE);
+			oModel.setProperty("/header/country", sData.COUNTRY);
 			return this.fnDialog("editAddress")
-
 		},
 
 
@@ -336,14 +335,14 @@ sap.ui.define([
 				MessageToast.show("Address Id is mandatory.")
 				return
 			}
-			if((oPayload.address_id.trim()).length>4){
-				MessageToast.show("Address Id length can't be greator than 4 number.")
-				return
-			}
-			if((oPayload.address_id).trim() == "" || isNaN(oPayload.address_id)== true){
-				MessageToast.show("Address Id contains number only")
-				return
-			}
+			// if((oPayload.address_id.trim()).length>4){
+			// 	MessageToast.show("Address Id length can't be greator than 4 number.")
+			// 	return
+			// }
+			// if((oPayload.address_id).trim() == "" || isNaN(oPayload.address_id)== true){
+			// 	MessageToast.show("Address Id contains number only")
+			// 	return
+			// }
 			// --------------------Address Id--------------------------------//
 			// --------------------Address Line 1--------------------------------//
 			if(oPayload.add_line_1==""){
@@ -490,7 +489,7 @@ sap.ui.define([
 
 		readProduct: function () {
 			this.ajaxUtil.get("/products", function (oData) {
-				var sData = oData.data[0];
+				var sData = oData.data;
 				console.log(sData)
 				this.getView().getModel().setProperty("/products", sData);
 				this.getView().getModel().refresh();
@@ -512,6 +511,7 @@ sap.ui.define([
 			this.getModel().getProperty("/addItems").push({
 				"product_id":"",
 				"category":"",
+				"prod_desc":"",
 				"unit_price":0,
 				"quantity":0,
 				"total_price":0})
@@ -532,8 +532,9 @@ sap.ui.define([
 			var sSelProd = oEvent.getParameter("selectedItem").getBindingContext().getObject()
 			var sRowPath = oEvent.getSource().getParent().getBindingContextPath();
 			var sSelRow = this.getModel().getContext(sRowPath).getObject();
-			sSelRow.unit_price = sSelProd.product_price;
-			sSelRow.category = sSelProd.prod_category_text;
+			sSelRow.unit_price = sSelProd.PRODUCT_PRICE;
+			sSelRow.category = sSelProd.PROD_CATEGORY_TEXT;
+			sSelRow.prod_desc = sSelProd.PRODUCT_DESC;
 			// if customer add product and enter qty then total price will reflect automatically but  if customer chnage product then total price will not update hence below line need to put here too.
 			sSelRow.total_price = sSelRow.unit_price * sSelRow.quantity;
 			return this.finalTotalChange()
@@ -564,12 +565,11 @@ sap.ui.define([
 			this.getView().getModel().setProperty("/orderNumber",rOrderNo)
 			var sId = this.getModel().getProperty("/customerId")
 			var oPayload = this.getView().getModel().getProperty("/addOrder")
-			var fName = this.getView().getModel().getProperty("/custAllDetail/first_name")
-			var lName = this.getView().getModel().getProperty("/custAllDetail/last_name")
+			var fName = this.getView().getModel().getProperty("/custAllDetail/FIRST_NAME")
+			var lName = this.getView().getModel().getProperty("/custAllDetail/LAST_NAME")
 			oPayload.customer_id = sId;
 			oPayload.order_date = this.formatter.fnFormatDate(new Date());
 			oPayload.deliver_date = this.formatter.fnFormatDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
-
 			oPayload.customer_name = fName+" " + lName
 			oPayload.order_no = rOrderNo;
 			oPayload.order_status = "R"
@@ -579,7 +579,7 @@ sap.ui.define([
 			this.ajaxUtil.post("/order", function (oData) {
 				console.log(oData)
 				if (oData.status == 405) {
-					MessageBox.error("Adddress Id already exist.");
+					MessageBox.error("Order no already exist.");
 				} else if (oData.status == 500) {
 					MessageBox.error("Something went wrong." + oData.error);
 				} else {
@@ -609,6 +609,7 @@ sap.ui.define([
 			var aAddItems = this.getView().getModel().getProperty("/addItems")
 					for (var i=0; i<aAddItems.length; i++){
 					var oPayload = aAddItems[i];
+					console.log(aAddItems)
 					oPayload.order_no = this.getView().getModel().getProperty("/orderNumber");
 					this.ajaxUtil.post("/items", function (oItemData) {
 			if (oItemData.status == 500) {
@@ -626,8 +627,10 @@ sap.ui.define([
 
 	orderReset:function(){
 		var oModel = this.getView().getModel()
-			oModel.setProperty("/addItems",[{"product_id":"",
+			oModel.setProperty("/addItems",[{
+			"product_id":"",
 			"category":"",
+			"prod_desc":"",
 			"unit_price":0,
 			"quantity":0,
 			"total_price":0}]);
@@ -637,16 +640,16 @@ sap.ui.define([
 
 	orderStatusUpdate:function(oEvent){
 		var sContext = oEvent.getSource().getParent().getBindingContext();
-		var sOrderStatus = sContext.getProperty("order_status_text");
-		var sId = sContext.getProperty("order_no");
-		var sStatus = this.formatter.fnOrderStatusCode(sOrderStatus);
+		var sOrderStatus = sContext.getProperty("ORDER_STATUS_TEXT");
+		var sId = sContext.getProperty("ORDER_NO");
+		var sStatus = this.formatter.fnToUpdateStatusCode(sOrderStatus);
 		var oPayload = {
 			"order_no": sId,
 			"order_status": sStatus
 		};
 		if (sOrderStatus !== "Delivered"){
 		this.ajaxUtil.put("/order/status",function(oData){
-			// console.log(oData)
+			console.log(oData)
 			if(oData.status == 200){
 				
 				MessageBox.success("Status updted successfully.", {

@@ -1,6 +1,7 @@
 var customerRepo= require('../respository/customer.repo.js');
 var orderRepo= require('../respository/order.repo.js');
 var addressRepo = require("../respository/address.repo.js")
+var {currentDate} = require('../util/db');
 var sResp = "";
 
 async function get(req,res){
@@ -40,8 +41,7 @@ async function getAllDetailsByCustID(req,res){
             sResult[0].ORDERS = await orderRepo.getOrderByCustId(req.params.id);
             sResult[0].address = await addressRepo.getAddByCustId(req.params.id);
         }
-        console.log("Kapil")
-        console.log(sResult);
+        // console.log(sResult);
         sResp = {status:sResult.length > 0 ?200:404,"message":sResult.length > 0 ?"OK":"No Data found",data:sResult};
         
     }catch(err){
@@ -56,11 +56,11 @@ async function getAllDetailsByCustID(req,res){
 async function post(req,res){
    try{
     req.body.created_by= "system";
-    req.body.created_at =new Date();
+    req.body.created_at =currentDate();
     req.body.updated_by ="system";
-    req.body.updated_at =new Date();
+    req.body.updated_at =currentDate();
     var sResult = await customerRepo.createCustomer(req.body);
-    sResp = {status:sResult.affectedRows == 1 ?201:405,"message":sResult.affectedRows ==1 ?"Created successfully.":"No Data found",data:sResult};
+    sResp = {status:sResult == 1 ?201:405,"message":sResult ==1 ?"Created successfully.":"No Data found",data:sResult};
      
    }catch(err){
     sResp = {status:500,message:"Something went wrong.",error:err.message};
@@ -72,9 +72,9 @@ async function post(req,res){
 async function put(req,res){
    try{
     req.body.updated_by ="system";
-    req.body.updated_at =new Date();
+    req.body.updated_at =currentDate();
     var sResult = await customerRepo.updateCustomer(req.body);
-    sResp = {"status":sResult.affectedRows >0 ? 200: 405,"message":sResult.affectedRows > 0 ?"Update successfully.":"No Data found", data:sResult};
+    sResp = {"status":sResult >0 ? 200: 405,"message":sResult > 0 ?"Update successfully.":"No Data found", data:sResult};
      
    }catch(err){
     sResp = {status:500,message:"Something went wrong.",error:err.message};
@@ -86,7 +86,8 @@ async function put(req,res){
 async function updateActToInact(req,res){
     try{
      var sResult = await customerRepo.activetoInactiveCustomer(req.params.id);
-     sResp = {"status":sResult.affectedRows >0 ? 200: 405,"message":sResult.affectedRows > 0 ?"Update successfully.":"No Data found", data:sResult};
+    //  console.log(sResult)
+     sResp = {"status":sResult > 0 ? 200: 405,"message":sResult > 0 ?"Update successfully.":"No Data found", data:sResult};
       
     }catch(err){
      sResp = {status:500,message:"Something went wrong.",error:err.message};
@@ -98,7 +99,7 @@ async function updateActToInact(req,res){
  async function updateInactToAct(req,res){
     try{
      var sResult = await customerRepo.inactiveToActiveCustomer(req.params.id);
-     sResp = {"status":sResult.affectedRows >0 ? 200: 405,"message":sResult.affectedRows > 0 ?"Update successfully.":"No Data found", data:sResult};
+     sResp = {"status":sResult >0 ? 200: 405,"message":sResult > 0 ?"Update successfully.":"No Data found", data:sResult};
       
     }catch(err){
      sResp = {status:500,message:"Something went wrong.",error:err.message};

@@ -18,7 +18,7 @@
         <Label text="Category" />
         <Select selectedKey="{prModel>/header/product_category}" items="{appModel>/prodCat}" editable="{prModel>/view/showFalse}">
             <items>
-                <core:Item text="{appModel>value}" key="{appModel>key}"/>
+                <core:Item text="{appModel>VALUE}" key="{appModel>KEY}"/>
             </items>
         </Select>
        </VBox>
@@ -33,7 +33,7 @@
         <Label text="Status" />
         <Select selectedKey="{prModel>/header/product_status}" items="{appModel>/prodStatus}" editable="{prModel>/view/showFalse}">
             <items>
-                <core:Item text="{appModel>value}" key="{appModel>key}"/>
+                <core:Item text="{appModel>VALUE}" key="{appModel>KEY}"/>
             </items>
         </Select>
        </VBox>

@@ -97,6 +97,10 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min));
 };
 
+function currentDate (){
+var date = new Date();
+return date.toISOString();
+};
 
 
 
@@ -105,5 +109,6 @@ function getRandomInt(min, max) {
 module.exports = {
   getConnection,
   excuteQuery,
-  getRandomInt
+  getRandomInt,
+  currentDate
 }

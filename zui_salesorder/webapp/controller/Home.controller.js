@@ -29,7 +29,7 @@ sap.ui.define([
             "middle_name": "",
             "gender": "F",
             "date_of_birth": null,
-            "is_active_check": false,
+            "is_active": false,
             "marital_status_radio": 0,
             "country_code": "",
             "mobile_no": "",
@@ -146,19 +146,17 @@ sap.ui.define([
 				MessageToast.show("Email Id can not contain 'space'")
 				return
 			}
-			// --------------------Email Id--------------------------------//
+			// ---------------------------Email Id--------------------------------//
 
 			oPayload.date_of_birth = this.formatter.fnFormatDate(oPayload.date_of_birth);
-			oPayload.marital_status = oPayload.marital_status==0?"M":"U";
-			oPayload.is_active = oPayload.is_active==true?"Y":"N";
+			oPayload.marital_status = oPayload.marital_status_radio==0?"M":"U";
 			this.ajaxUtil.post("/customer",function(oData){
-				console.log(oData)
+				// console.log(oData)
 				if(oData.status == 405){
 					MessageBox.error("Customer already exist .");
 				}else if (oData.status == 500){
 					MessageBox.error("Something went wrong."+oData.error);
-				}else{
-					
+				}else{					
 					MessageBox.success("Employee created successfully .", {
 						actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
 						emphasizedAction: MessageBox.Action.OK,
@@ -247,7 +245,6 @@ sap.ui.define([
 		// --------------------Email Id--------------------------------//
 		oPayload.date_of_birth = this.formatter.fnFormatDate(oPayload.date_of_birth);
 		oPayload.marital_status = oPayload.marital_status_radio==0?"M":"U";
-		oPayload.is_active = oPayload.is_active_check==true?"Y":"N";
 		this.ajaxUtil.put("/customer",function(oData){
 			console.log(oData)
 			if(oData.status == 200){
@@ -282,7 +279,7 @@ sap.ui.define([
 		this.getModel().setProperty("/header/middle_name","");
 		this.getModel().setProperty("/header/gender","F");
 		this.getModel().setProperty("/header/date_of_birth",null);
-		this.getModel().setProperty("/header/is_active_check",false);
+		this.getModel().setProperty("/header/is_active",false);
 		this.getModel().setProperty("/header/marital_status_radio",0);
 		this.getModel().setProperty("/header/country_code","");
 		this.getModel().setProperty("/header/mobile_no","");
@@ -310,22 +307,22 @@ sap.ui.define([
 			this.getModel().setProperty("/view/showFalse",false);
 			var sContext = oEvent.getSource().getParent().getParent().getBindingContext();
 			var sData = sContext.getProperty();
-			var isActiveCheck = sData.is_active=="Y"?true:false;
-			var marStatusRadio = sData.marital_status=="M"?0:1
-				this.getView().getModel().setProperty("/header/customer_id", sData.customer_id);
-				this.getView().getModel().setProperty("/header/first_name", sData.first_name);
-				this.getView().getModel().setProperty("/header/last_name", sData.last_name);
-				this.getView().getModel().setProperty("/header/middle_name", sData.middle_name);
-				this.getView().getModel().setProperty("/header/date_of_birth", sData.date_of_birth);
-				this.getView().getModel().setProperty("/header/gender", sData.gender);
-				this.getView().getModel().setProperty("/header/is_active_check",isActiveCheck );
+			var marStatusRadio = sData.MARITAL_STATUS=="M"?0:1
+			// var dob = this.formatter.fnFormatDate(sData.date_of_birth);
+				this.getView().getModel().setProperty("/header/customer_id", sData.CUSTOMER_ID);
+				this.getView().getModel().setProperty("/header/first_name", sData.FIRST_NAME);
+				this.getView().getModel().setProperty("/header/last_name", sData.LAST_NAME);
+				this.getView().getModel().setProperty("/header/middle_name", sData.MIDDLE_NAME);
+				this.getView().getModel().setProperty("/header/date_of_birth", sData.DATE_OF_BIRTH);
+				this.getView().getModel().setProperty("/header/gender", sData.GENDER);
+				this.getView().getModel().setProperty("/header/is_active",sData.IS_ACTIVE );
 				this.getView().getModel().setProperty("/header/marital_status_radio", marStatusRadio );
-				this.getView().getModel().setProperty("/header/country_code", sData.country_code);
-				this.getView().getModel().setProperty("/header/mobile_no", sData.mobile_no);
-				this.getView().getModel().setProperty("/header/alt_country_code", sData.alt_country_code);
-				this.getView().getModel().setProperty("/header/alt_mobile", sData.alt_mobile);
-				this.getView().getModel().setProperty("/header/email_add", sData.email_add);
-				this.getView().getModel().setProperty("/header/alt_email_add", sData.alt_email_add);
+				this.getView().getModel().setProperty("/header/country_code", sData.COUNTRY_CODE);
+				this.getView().getModel().setProperty("/header/mobile_no", sData.MOBILE_NO);
+				this.getView().getModel().setProperty("/header/alt_country_code", sData.ALT_COUNTRY_CODE);
+				this.getView().getModel().setProperty("/header/alt_mobile", sData.ALT_MOBILE);
+				this.getView().getModel().setProperty("/header/email_add", sData.EMAIL_ADD);
+				this.getView().getModel().setProperty("/header/alt_email_add", sData.ALT_EMAIL_ADD);
 			return this.fnDialog("EditCustomer")
 
 		},

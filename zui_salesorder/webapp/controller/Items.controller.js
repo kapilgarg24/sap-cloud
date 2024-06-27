@@ -84,7 +84,7 @@ sap.ui.define([
 
 		// ===================Order===============================
 		onNavBack: function() {
-			var sId = this.getView().getModel("orModel").getProperty("/orderDetail/customer_id");
+			var sId = this.getView().getModel("orModel").getProperty("/orderDetail/CUSTOMER_ID");
 			const oHistory = History.getInstance();
 			const sPreviousHash = oHistory.getPreviousHash();
 			console.log(sPreviousHash)

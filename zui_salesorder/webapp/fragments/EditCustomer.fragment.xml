@@ -63,7 +63,7 @@
         <VBox >
         <Label text="Marital Status" />
           <RadioButtonGroup columns="2" selectedIndex="{/header/marital_status_radio}" buttons="{appModel>/marital}" editable="{/view/showFalse}">
-                        <RadioButton text="{appModel>value}"/>
+                        <RadioButton text="{appModel>VALUE}"/>
                     </RadioButtonGroup>
         </VBox>
         
@@ -73,14 +73,14 @@
         <!-- <Input value="{/header/gender}" /> -->        
         <Select selectedKey="{/header/gender}" items="{appModel>/gender}" editable="{/view/showFalse}">
             <items>
-                <core:Item text="{appModel>value}" key="{appModel>key}"/>
+                <core:Item text="{appModel>VALUE}" key="{appModel>KEY}"/>
             </items>
         </Select>
     
         </VBox>
 
         <VBox  >
-        <CheckBox text="isActive ?" selected="{/header/is_active_check}" editable="{/view/showFalse}"/>        
+        <CheckBox text="isActive ?" selected="{/header/is_active}" editable="{/view/showFalse}"/>        
         </VBox>
         </l:Grid>
         </content>

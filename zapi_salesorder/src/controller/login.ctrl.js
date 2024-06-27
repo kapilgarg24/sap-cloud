@@ -1,30 +1,30 @@
 var loginRepo = require("../respository/login.repo")
 var sResp = "";
 
-async function get(req,res){
+// async function get(req,res){
     
-    try{
-        var oPayload = {
-            user_name: req.query.user_name,
-        }
-        var sResult = await loginRepo.getCustomer(oPayload);
-        sResp = {status:sResult.length>0?200:404,"message":sResult.length>0?"OK":"No Data found",data:sResult};
-        // sResp=sResult;
-    }catch(err){
-    sResp = {status:500,message:"Something went wrong.",error:err.message};
-   }finally{
-    res.send(sResp);
-   }
-};
+//     try{
+//         var oPayload = {
+//             user_name: req.query.user_name,
+//         }
+//         var sResult = await loginRepo.getCustomer(oPayload);
+//         sResp = {status:sResult.length>0?200:404,"message":sResult.length>0?"OK":"No Data found",data:sResult};
+//         // sResp=sResult;
+//     }catch(err){
+//     sResp = {status:500,message:"Something went wrong.",error:err.message};
+//    }finally{
+//     res.send(sResp);
+//    }
+// };
 
-async function getByPassword(req,res){
+async function getUser(req,res){
     
     try{
         var oPayload = {
             user_name: req.query.user_name,
             user_password: req.query.user_password
         }
-        var sResult = await loginRepo.loginFromPassword(oPayload);
+        var sResult = await loginRepo.loginUser(oPayload);
         sResp = {status:sResult.length>0?200:404,"message":sResult.length>0?"OK":"No Data found",data:sResult};
         // sResp=sResult;
     }catch(err){
@@ -139,8 +139,8 @@ async function del(req,res){
 
 
 module.exports = {
-    get,
-    getByPassword,
+    getUser,
+    // getByPassword,
     // post,
     // put,
     // updateActToInact,

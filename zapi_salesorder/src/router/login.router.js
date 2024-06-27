@@ -4,8 +4,8 @@ var url = "/login"
 
 function assignRoutes (app,baseUrl) {
   
-  app.get(baseUrl+url+"/check",loginCtrl.get);
-  app.get(baseUrl+url,loginCtrl.getByPassword);
+  // app.get(baseUrl+url+"/check",loginCtrl.get);
+  app.get(baseUrl+url,loginCtrl.getUser);
   // app.get(baseUrl+url+"/:id",customerCtrl.getById);
   // app.get(baseUrl+url+"/:id/allDetails",customerCtrl.getAllDetailsByCustID);
   // app.post(baseUrl+url,customerCtrl.post);

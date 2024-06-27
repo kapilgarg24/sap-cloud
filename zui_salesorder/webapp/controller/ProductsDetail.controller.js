@@ -112,13 +112,12 @@ sap.ui.define([
 			var sData = sContext.getProperty();
 			console.log(sData);
 			var oModel = this.getView().getModel("prModel")
-				oModel.setProperty("/header/product_id", sData.product_id);
-				oModel.setProperty("/header/product_desc", sData.product_desc);
-				oModel.setProperty("/header/product_category", sData.product_category);
-				oModel.setProperty("/header/product_price", sData.product_price);
-				oModel.setProperty("/header/product_status", sData.product_status);
+				oModel.setProperty("/header/product_id", sData.PRODUCT_ID);
+				oModel.setProperty("/header/product_desc", sData.PRODUCT_DESC);
+				oModel.setProperty("/header/product_category", sData.PRODUCT_CATEGORY);
+				oModel.setProperty("/header/product_price", sData.PRODUCT_PRICE);
+				oModel.setProperty("/header/product_status", sData.PRODUCT_STATUS);
 			return this.fnDialog("EditProduct")
-
 		},
 
 
@@ -127,8 +126,7 @@ sap.ui.define([
 		var oPayload = this.getView().getModel("prModel").getProperty("/header")
 		this.ajaxUtil.put("/products",function(oData){
 			console.log(oData)
-			if(oData.status == 200){
-				
+			if(oData.status == 200){				
 				MessageBox.success("Product updated successfully.", {
 					actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
 					emphasizedAction: MessageBox.Action.OK,
@@ -197,7 +195,7 @@ sap.ui.define([
 	
 	deleteProduct:function(oEvent){
 		var sContext = oEvent.getSource().getParent().getBindingContext("prModel");
-		var sId = sContext.getProperty("product_id");
+		var sId = sContext.getProperty("PRODUCT_ID");
 		var oPayload = { "product_id": sId };
 		MessageBox.warning("Are you sure? you want to delete Product:" + sId, {
 			actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
@@ -206,9 +204,16 @@ sap.ui.define([
 				if (MessageBox.Action.OK == sAction) {
 					
 					this.ajaxUtil.put("/products/tempDelete", function (oData) {
+						if (oData.status == 200){
 						MessageToast.show("Product: " + sId + " is deleted.");
 						// this.readProduct();
 						this.onProdSearch();
+						}
+						else if (oData.status == 500){
+							MessageBox.error("Something went wrong."+oData.error);
+						}else{				
+							MessageBox.error("Product not found.");				
+						}
 					}.bind(this), function (xHrx) {
 						
 					},oPayload);
@@ -235,8 +240,8 @@ sap.ui.define([
 
 	prodStatusUpdate:function(oEvent){
 		var sContext = oEvent.getSource().getParent().getBindingContext("prModel");
-		var sProdStatus = sContext.getProperty("prod_status_text");
-		var sId = sContext.getProperty("product_id");
+		var sProdStatus = sContext.getProperty("PROD_STATUS_TEXT");
+		var sId = sContext.getProperty("PRODUCT_ID");
 		var sStatus = this.formatter.fnProdStatusCode(sProdStatus);
 		var oPayload = {
 			"product_id": sId,
@@ -245,8 +250,7 @@ sap.ui.define([
 
 		this.ajaxUtil.put("/products/status",function(oData){
 			// console.log(oData)
-			if(oData.status == 200){
-				
+			if(oData.status == 200){				
 				MessageBox.success("Status updted successfully.", {
 					actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
 					emphasizedAction: MessageBox.Action.OK,

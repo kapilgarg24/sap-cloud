@@ -11,7 +11,7 @@ function assignRoutes (app,baseUrl) {
    * @security BearerAuth
    * @param {string} group.path - filter by key
    */
-  app.get(baseUrl+url,keyValueCtrl.get);
+  // app.get(baseUrl+url,keyValueCtrl.get);
 
     /**
    * GET /api/v1/keyValue/

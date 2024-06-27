@@ -151,7 +151,7 @@ sap.ui.define([], function() {
             }
         },
     
-        fnOrderStatusCode:function(statusText){
+        fnToUpdateStatusCode:function(statusText){
             switch (statusText) {
                 case "Registered":
                     return "I";

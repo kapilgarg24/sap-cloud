@@ -5,8 +5,8 @@
 			<content>
 				<Title text="Customer Details" level="H2"/>
 				<ToolbarSpacer />
-				<Button icon="sap-icon://add" text="Add Address {= ${/addDetails}.length}" type="Emphasized" 
-                press="addNewAddressPress" enabled="{= (${/custAllDetail/is_active}==='Y' &amp;&amp; ${/addDetails}.length===0)?true:false}"/>       
+				<Button icon="sap-icon://add" text="Add Address" type="Emphasized" 
+                press="addNewAddressPress" />    
 			</content>
 		</OverflowToolbar>
 </headerToolbar>
@@ -44,14 +44,14 @@
 		<items>
 			<ColumnListItem vAlign="Middle">			
 				<cells>
-					<Text text="{address_id}" />
-					<Text text="{address_type_text}" />
-					<Text text="{add_line_1} {add_line_2} {add_line_3}" />
-					<Text text="{street}" />
-                    <Text text="{city}" />
-                    <Text text="{postal_code}" />
-                    <Text text="{state}" />
-                    <Text text="{country}" />
+					<Text text="{ADDRESS_ID}" />
+					<Text text="{ADDRESS_TYPE_TEXT}" />
+					<Text text="{ADD_LINE_1} {ADD_LINE_2} {ADD_LINE_3}" />
+					<Text text="{STREET}" />
+                    <Text text="{CITY}" />
+                    <Text text="{POSTAL_CODE}" />
+                    <Text text="{STATE}" />
+                    <Text text="{COUNTRY}" />
 					<HBox>
 					<Button icon="sap-icon://edit" press="updateAddressPress" />
 					<!-- <Button class="sapUiTinyMarginBegin" icon="sap-icon://delete" press="deleteAddressPress" /> -->

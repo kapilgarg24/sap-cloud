@@ -23,25 +23,25 @@
 			<f:content>
 				<core:Title text="General Information" />
 				<Label text="Full Name" />
-				<Text text="{/custAllDetail/first_name} {/custAllDetail/middle_name} {/custAllDetail/last_name}" />
+				<Text text="{/custAllDetail/FIRST_NAME} {/custAllDetail/MIDDLE_NAME} {/custAllDetail/LAST_NAME}" />
 				<Label text="Date Of Birth" />
-				<Text text="{path:'/custAllDetail/date_of_birth', formatter:'.formatter.fnDisplayDate'}" />				
+				<Text text="{path:'/custAllDetail/DATE_OF_BIRTH', formatter:'.formatter.fnDisplayDate'}" />				
 				<Label text="Gender" />
-				<Text text="{/custAllDetail/gender_text}" />
+				<Text text="{/custAllDetail/GENDER_TEXT}" />
 				<Label text="Marital Status" />
-				<Text text="{/custAllDetail/marital_status_text}" />
+				<Text text="{/custAllDetail/MARITAL_STATUS_TEXT}" />
 				<Label text="Current status" />
-				<Text text="{/custAllDetail/is_active_text}" />
+				<Text text="{/custAllDetail/IS_ACTIVE_TEXT}" />
 
 				<core:Title text="Contact Details" />
 				<Label text="Mobile no" />
-				<Text text="{/custAllDetail/country_code}-{/custAllDetail/mobile_no}" />
+				<Text text="{/custAllDetail/COUNTRY_CODE}-{/custAllDetail/MOBILE_NO}" />
 				<Label text="Alternate Mobile No" />
-				<Text text="{/custAllDetail/alt_country_code}-{/custAllDetail/alt_mobile}" />
+				<Text text="{/custAllDetail/ALT_COUNTRY_CODE}-{/custAllDetail/ALT_MOBILE}" />
 				<Label text="Email Id" />
-				<Text text="{/custAllDetail/email_add}" />
+				<Text text="{/custAllDetail/EMAIL_ADD}" />
 				<Label text="Alternate Email Id" />
-				<Text text="{/custAllDetail/alt_email_add}" />
+				<Text text="{/custAllDetail/ALT_EMAIL_ADD}" />
 			</f:content>
 		</f:SimpleForm>
 	

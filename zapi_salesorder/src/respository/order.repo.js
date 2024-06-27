@@ -1,24 +1,14 @@
 var {excuteQuery, getRandomInt} = require('../util/db');
 const { SO_SCHEMA } = require('../util/constant');
 
-var getOrdrByCustId = `SELECT ORDR.*, MKV_AT.VALUE AS ADDRESS_TYPE_TEXT, MKV_OS.VALUE AS ORDER_STATUS_TEXT FROM ${SO_SCHEMA}.ORDER_INFO AS ORDR 
-LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_AT
-ON ORDR.ADDRESS_TYPE = MKV_AT.KEY AND MKV_AT.KEY_GROUP = 'address_type' 
-LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_OS
-ON ORDR.ORDER_STATUS = MKV_OS.KEY AND MKV_OS.KEY_GROUP = 'order_status'
-WHERE ORDR.CUSTOMER_ID=?`
+var getOrdrByCustId = `CALL ${SO_SCHEMA}.SP_ORDER_BY_CUST_ID(?)`
 
-var getOrdrByOrderNo = `SELECT ORDR.*, MKV_AT.VALUE AS address_type_text, MKV_OS.VALUE AS order_status_text FROM ${SO_SCHEMA}.ORDER_INFO AS ORDR 
-LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_AT
-ON ORDR.ADDRESS_TYPE = MKV_AT.KEY 
-LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_OS
-ON ORDR.ORDER_STATUS = MKV_OS.KEY
-WHERE ORDR.ORDER_NO=? AND MKV_AT.GROUP = "ADDRESS_TYPE" AND MKV_OS.GROUP = "ORDER_STATUS"`
+var getOrdrByOrderNo = `CALL ${SO_SCHEMA}.SP_ORDER_BY_ORDER_NO(?)`
 
-async function getOrder(oFilter){
-    var sReponse = await excuteQuery(`CALL SP_ORDER_FILTER(?,?)`,[oFilter.customer_id,oFilter.customer_name]);
-    return sReponse;
-};
+// async function getOrder(oFilter){
+//     var sReponse = await excuteQuery(`CALL SP_ORDER_FILTER(?,?)`,[oFilter.customer_id,oFilter.customer_name]);
+//     return sReponse;
+// };
 
 
 
@@ -59,7 +49,7 @@ async function deleteOrder(orderNo){
 };
 
 module.exports = {
-    getOrder,
+    // getOrder,
     getOrderByCustId,
     getOrderById,
     createOrder,

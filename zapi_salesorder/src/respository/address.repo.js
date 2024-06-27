@@ -1,11 +1,7 @@
 var {excuteQuery} = require('../util/db');
 const { SO_SCHEMA } = require('../util/constant');
 
-var AddressByCustId = `SELECT * FROM ${SO_SCHEMA}.ADDRESS AS ADDR WHERE ADDR.customer_id = ?`;
-
-// var AddressByCustId = `SELECT ADDR.*, MKV_AT.VALUE AS ADDRESS_TYPE_TEXT FROM ${SO_SCHEMA}.ADDRESS AS ADDR
-// LEFT JOIN ${SO_SCHEMA}.MAS_KEY_VALUE AS MKV_AT
-// ON ADDR.address_type = MKV_AT.KEY AND MKV_AT.KEY_GROUP='address_type' WHERE ADDR.customer_id = ?`;
+var AddressByCustId = `CALL ${SO_SCHEMA}.SP_ADDRESS_BY_ID(?)`
 
 async function getAddress(){
     var sReponse = await excuteQuery(`SELECT * FROM ${SO_SCHEMA}.ADDRESS`,[]);
@@ -31,8 +27,8 @@ async function createAddress(oPayload){
 async function updateAddress(oPayload){
     console.log(oPayload);
     var sReponse = await excuteQuery(
-        `UPDATE ${SO_SCHEMA}.ADDRESS SET ADDRESS_ID = ?, ADD_LINE_1 = ?, ADD_LINE_2 = ?, ADD_LINE_3 = ?,STREET = ?, CITY = ?, STATE = ?,POSTAL_CODE = ?, COUNTRY = ?, UPDATED_BY=?,UPDATED_AT=?  WHERE ADDRESS_TYPE = ? AND CUSTOMER_ID = ?`,
-        [oPayload.address_id,oPayload.add_line_1,oPayload.add_line_2,oPayload.add_line_3,oPayload.street,oPayload.city,oPayload.state,oPayload.postal_code,oPayload.country,oPayload.updated_by,oPayload.updated_at,oPayload.address_type,oPayload.customer_id]);
+        `UPDATE ${SO_SCHEMA}.ADDRESS SET ADDRESS_TYPE = ?, ADD_LINE_1 = ?, ADD_LINE_2 = ?, ADD_LINE_3 = ?,STREET = ?, CITY = ?, STATE = ?,POSTAL_CODE = ?, COUNTRY = ?, UPDATED_BY=?,UPDATED_AT=?  WHERE ADDRESS_ID = ? AND CUSTOMER_ID = ?`,
+        [oPayload.address_type,oPayload.add_line_1,oPayload.add_line_2,oPayload.add_line_3,oPayload.street,oPayload.city,oPayload.state,oPayload.postal_code,oPayload.country,oPayload.updated_by,oPayload.updated_at,oPayload.address_id,oPayload.customer_id]);
     return sReponse;
 }
 
@@ -48,3 +44,29 @@ module.exports = {
     updateAddress,
     deleteAddress
 }
+
+
+// ADDRESS_TYPE_TEXT
+// CREATED_AT
+// CREATED_BY
+// CUSTOMER_ID
+// CUSTOMER_NAME
+// DELIVERY_DATE
+// FINAL_AMOUNT
+// ORDER_DATE
+// ORDER_NO
+// ORDER_STATUS_TEXT
+
+// AddressByCustId
+
+// add_line_1
+// add_line_2
+// add_line_3
+// address_id
+// address_type
+// city
+// country
+// customer_id
+// postal_code
+// state
+// street

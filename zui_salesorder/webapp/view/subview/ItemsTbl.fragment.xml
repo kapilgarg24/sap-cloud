@@ -33,12 +33,12 @@
 		<items>
 			<ColumnListItem vAlign="Middle" type="Active" press="moreOrderDetails">			
 				<cells>
-					<Text text="{orModel>product_id}" />
-					<Text text="{orModel>product_desc_text}" />
-					<Text text="{orModel>category}" />
-					<Text text="{orModel>quantity}" />
-					<Text text="{orModel>unit_price}" />
-					<Text text="{orModel>total_price}" />
+					<Text text="{orModel>PRODUCT_ID}" />
+					<Text text="{orModel>PRODUCT_DESC}" />
+					<Text text="{orModel>CATEGORY}" />
+					<Text text="{orModel>QUANTITY}" />
+					<Text text="{orModel>UNIT_PRICE}" />
+					<Text text="{orModel>TOTAL_PRICE}" />
 				</cells>
 			</ColumnListItem>
             
